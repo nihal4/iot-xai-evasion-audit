@@ -31,7 +31,8 @@ class Config:
     split_seed_base: int = 2026                                # split s uses 2026 + s
     max_rows_per_dataset: int | None = None                    # None = all rows after dedup
     dedup: bool = True                                         # de-duplicate before partitioning
-    feature_policy: str = "v2"                                 # "v2" | "numeric_only" (ablation)
+    feature_policy: str = "v2"                                 # "v2" | "numeric_only" | "v1" (ablation)
+    scaling: str = "logminmax"                                 # "logminmax" | "quantile_v1" (ablation)
     val_frac: float = 0.15
     test_frac: float = 0.15
 
@@ -100,6 +101,7 @@ class Config:
     run_profiling: bool = False
     run_baseline_ablation: bool = False
     run_operating_point: bool = False
+    run_v1_path: bool = False
     profile_rows: int = 100
 
     device: str = "auto"
@@ -171,6 +173,15 @@ DATASET_SPECS = {
 
 ALL_MODELS = ["mlp_clean", "mlp_fgsmat", "mlp_pgdat", "xgb"]
 
+# Exact feature lists of the original (v1) submission, from its archived metadata.
+V1_FEATURES = {
+    "ton": ["duration", "src_bytes", "dst_bytes", "missed_bytes", "src_pkts", "dst_pkts", "dns_qtype", "dns_rcode"],
+    "edge": ["arp.opcode", "arp.hw.size", "icmp.checksum", "icmp.seq_le", "http.content_length", "http.response",
+             "tcp.ack", "tcp.ack_raw", "tcp.checksum", "tcp.connection.fin", "tcp.connection.rst",
+             "tcp.connection.syn", "tcp.connection.synack", "tcp.flags", "tcp.flags.ack", "tcp.len", "tcp.seq",
+             "udp.stream", "dns.qry.name", "mqtt.hdrflags", "mqtt.len", "mqtt.msgtype"],
+}
+
 
 def session_config(session: str, **base) -> Config:
     """Presets for the reported run (one Kaggle notebook version per session)."""
@@ -190,6 +201,9 @@ def session_config(session: str, **base) -> Config:
         return Config(**base, datasets=["ton", "edge"], seeds=SEEDS_20[:5], split_ids=[],
                       run_at_sweep=True, run_multiclass=True, run_profiling=True,
                       run_baseline_ablation=True)
+    if s == "C4":   # v1 -> v2 baseline path (feature list, scaling) + absolute-memory profiling
+        return Config(**base, datasets=["ton", "edge"], seeds=SEEDS_20[:5], split_ids=[],
+                      run_v1_path=True, run_profiling=True)
     if s == "C3":   # attack success vs. FPR-matched operating points (short)
         return Config(**base, datasets=["ton", "edge"], seeds=SEEDS_20[:5], split_ids=[],
                       run_operating_point=True)

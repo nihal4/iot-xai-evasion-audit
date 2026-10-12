@@ -22,7 +22,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from .config import DATASET_SPECS
+from .config import DATASET_SPECS, V1_FEATURES
 
 MISSING_TOKENS = {"-", "", "nan", "none", "null", "?"}
 MAX_LEVELS = 20
@@ -76,8 +76,20 @@ def load_and_audit(cfg, name, log):
     path = discover_file(cfg, name)
     log(f"[{name}] reading {path}")
     drop = set(spec["drop"])
+    keep_only = None
+    if cfg.feature_policy == "v1":   # exact v1 feature list (ablation only)
+        keep_only = set(V1_FEATURES[name]) | {spec["label"], spec["family"]}
+        drop = set()
+    if keep_only is not None:
+        raw = pd.read_csv(path, usecols=lambda c: c.strip() in keep_only, low_memory=False)
+    else:
+        raw = None
     try:
+        if raw is not None:
+            raise StopIteration
         raw = pd.read_csv(path, usecols=lambda c: c.strip() not in drop, low_memory=False)
+    except StopIteration:
+        pass
     except Exception as exc:  # malformed quoting in payload-like columns
         log(f"[{name}] C parser failed ({exc}); retrying with python engine")
         raw = pd.read_csv(path, usecols=lambda c: c.strip() not in drop, engine="python",
@@ -194,9 +206,17 @@ class Preprocessor:
             if np.nanmax(v) == np.nanmin(v):
                 self.const_dropped.append(c)
                 continue
-            uselog = bool(np.nanmin(v) >= 0)
-            t = np.log1p(v) if uselog else v
-            lo, hi = float(np.min(t)), float(np.max(t))
+            if getattr(cfg, "scaling", "logminmax") == "quantile_v1":
+                # v1 scaling: train 1st/99th percentiles, linear, clipped; zero span -> removed
+                uselog = False
+                lo, hi = float(np.quantile(v, 0.01)), float(np.quantile(v, 0.99))
+                if hi <= lo:
+                    self.const_dropped.append(c)
+                    continue
+            else:
+                uselog = bool(np.nanmin(v) >= 0)
+                t = np.log1p(v) if uselog else v
+                lo, hi = float(np.min(t)), float(np.max(t))
             self.params[c] = {"log": uselog, "lo": lo, "hi": hi,
                               "raw_min": float(np.min(v)), "raw_max": float(np.max(v)),
                               "integer": bool(c in spec["integer"] or np.all(np.mod(v, 1) == 0))}
@@ -308,7 +328,9 @@ def stratified_pick(idx, fam, n, rng):
 def prepare(cfg, name, split_id, work_dir: Path, out_dir: Path, log, data_cache={}):
     """Return a dict with arrays + preprocessor for (dataset, split). Cached on disk."""
     work_dir.mkdir(parents=True, exist_ok=True)
-    tag = "" if (cfg.dedup and cfg.feature_policy == "v2") else f"_{cfg.feature_policy}_dedup{int(cfg.dedup)}"
+    sc = getattr(cfg, "scaling", "logminmax")
+    tag = "" if (cfg.dedup and cfg.feature_policy == "v2" and sc == "logminmax") else \
+        f"_{cfg.feature_policy}_dedup{int(cfg.dedup)}" + ("" if sc == "logminmax" else f"_{sc}")
     cache = work_dir / f"{name}_split{split_id}{tag}.npz"
     meta_path = work_dir / f"{name}_split{split_id}{tag}_prep.pkl"
     import pickle
@@ -316,7 +338,7 @@ def prepare(cfg, name, split_id, work_dir: Path, out_dir: Path, log, data_cache=
         z = dict(np.load(cache, allow_pickle=True))
         prep = pickle.loads(meta_path.read_bytes())
         return z, prep
-    ckey = (name, cfg.feature_policy, cfg.dedup)
+    ckey = (name, cfg.feature_policy, cfg.dedup)   # scaling is applied after loading
     if ckey not in data_cache:
         data_cache[ckey] = load_and_audit(cfg, name, log)
     data, audit = data_cache[ckey]

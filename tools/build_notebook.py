@@ -30,6 +30,7 @@ and Stability under Adversarial Evasion in IoT/IIoT Intrusion Detection"* (major
 | C1 | Partition sensitivity: 2 extra stratified partitions × 5 seeds, both datasets | see log |
 | C2 | Adversarial-training trade-off sweep, baseline ablation, multiclass attack-family analysis, memory/latency profiling | see log |
 | C3 | Attack success at false-positive-rate-matched operating points (short) | see log |
+| C4 | Original-pipeline replication path (feature list, scaling) + absolute-memory profiling (short) | see log |
 
 Each run writes `runs/<dataset>_split<k>_seed<s>/done.json`. If a session is interrupted, attach the previous
 version's output as an input and set `RESUME_FROM` so that the completed runs are skipped.
@@ -49,7 +50,7 @@ for m in MODULES:
                       "open('/kaggle/working/iotxai/__init__.py','w').write('''" + src + "''')"))
 cells.append(code('''
 # ============================ SESSION =====================================
-SESSION = "TEST"          # "TEST" first, then "A", "B", "C1", "C2", "C3" (one notebook version each)
+SESSION = "TEST"          # "TEST" first, then "A", "B", "C1", "C2", "C3", "C4" (one notebook version each)
 RESUME_FROM = ""          # e.g. "/kaggle/input/<previous-version-output>/results_v2" to skip finished runs
 TON_CSV = ""              # leave "" for automatic discovery under /kaggle/input
 EDGE_CSV = ""

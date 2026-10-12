@@ -177,6 +177,8 @@ class PeakRSS:
         self._run = False; self.t.join()
         self.peak = max(self.peak, self.p.memory_info().rss)
         self.delta_mb = (self.peak - self.start) / 2 ** 20
+        self.peak_mb = self.peak / 2 ** 20
+        self.start_mb = self.start / 2 ** 20
 
 
 def profiling(cfg, log):
@@ -222,14 +224,25 @@ def profiling(cfg, log):
                 if det.kind == "mlp":
                     tasks.append(("PGD_attack_c", lambda: A.pgd(det, X, max(cfg.epsilons), prep, "constrained",
                                                                cfg.pgd_steps, seed)))
+                if det.kind == "mlp":
+                    model_kb = sum(p.numel() * p.element_size() for p in det.obj.parameters()) / 1024
+                else:
+                    model_kb = len(det.obj.get_booster().save_raw("json")) / 1024
                 for tname, fn in tasks:
+                    import gc, tracemalloc
+                    gc.collect()
                     if gpu:
                         torch.cuda.reset_peak_memory_stats()
+                    tracemalloc.start()
                     with PeakRSS() as pr:
                         t0 = time.perf_counter(); fn(); secs = time.perf_counter() - t0
+                    tm_peak = tracemalloc.get_traced_memory()[1] / 2 ** 20
+                    tracemalloc.stop()
                     rows.append({"dataset": ds, "device": devname, "threads": threads, "model": mname, "task": tname,
                                  "n": len(X), "seconds": secs, "ms_per_record": 1000 * secs / len(X),
-                                 "peak_rss_delta_mb": pr.delta_mb,
+                                 "peak_rss_delta_mb": pr.delta_mb, "process_rss_before_mb": pr.start_mb,
+                                 "process_rss_peak_mb": pr.peak_mb, "py_alloc_peak_mb": tm_peak,
+                                 "model_size_kb": model_kb,
                                  "gpu_peak_alloc_mb": torch.cuda.max_memory_allocated() / 2 ** 20 if (gpu and devname == "cuda") else np.nan})
                     log(f"profile {ds} {devname}/{threads} {mname} {tname}: {1000*secs/len(X):.1f} ms/rec")
                     pd.DataFrame(rows).to_csv(out / "profiling.csv", index=False)
@@ -239,16 +252,17 @@ def profiling(cfg, log):
 
 
 # ------------------------------------------------------------ (4) baseline ablation
-def baseline_ablation(cfg, log):
+def baseline_ablation(cfg, log, combos=None, out_name="baseline_ablation"):
     """Isolates the contributors to the v1 Edge-IIoTset baseline deficit: feature
     policy (numeric-only vs. numeric+categorical), de-duplication, and threshold rule."""
     import dataclasses
     out = Path(cfg.out_dir) / "extras"; out.mkdir(parents=True, exist_ok=True)
     device = resolve_device(cfg.device)
     rows = []
-    for policy in ["numeric_only", "v2"]:
-        for dedup in [False, True]:
-            c2 = dataclasses.replace(cfg, feature_policy=policy, dedup=dedup)
+    combos = combos or [(p, d, "logminmax") for p in ["numeric_only", "v2"] for d in [False, True]]
+    for policy, dedup, scaling in combos:
+        if True:
+            c2 = dataclasses.replace(cfg, feature_policy=policy, dedup=dedup, scaling=scaling)
             for ds in cfg.datasets:
                 z, prep = prepare(c2, ds, 0, Path(cfg.work_dir), Path(cfg.out_dir), log)
                 for seed in cfg.seeds[:cfg.at_sweep_seeds]:
@@ -257,12 +271,12 @@ def baseline_ablation(cfg, log):
                         pt = det.predict(z["X_test"])
                         for rule, thr in (("fixed_0.5", 0.5), ("val_tuned", det.threshold)):
                             m = binary_metrics(z["y_test"], pt, thr)
-                            rows.append({"dataset": ds, "feature_policy": policy, "dedup": dedup, "seed": seed,
+                            rows.append({"dataset": ds, "feature_policy": policy, "dedup": dedup, "scaling": scaling, "seed": seed,
                                          "model": name, "threshold_rule": rule, "n_columns": z["X_train"].shape[1],
                                          "n_train": len(z["y_train"]), **m})
-                    log(f"ablation {ds} {policy} dedup={dedup} seed {seed} done")
-                    pd.DataFrame(rows).to_csv(out / "baseline_ablation.csv", index=False)
-    print_block("extras", "baseline_ablation", pd.DataFrame(rows))
+                    log(f"ablation {ds} {policy} dedup={dedup} {scaling} seed {seed} done")
+                    pd.DataFrame(rows).to_csv(out / f"{out_name}.csv", index=False)
+    print_block("extras", out_name, pd.DataFrame(rows))
     return pd.DataFrame(rows)
 
 
@@ -307,3 +321,12 @@ def operating_point(cfg, log):
             pd.DataFrame(rows).to_csv(out / "operating_point.csv", index=False)
     print_block("extras", "operating_point", pd.DataFrame(rows))
     return pd.DataFrame(rows)
+
+
+def v1_path(cfg, log):
+    """Reproduces the original (v1) pipeline and changes one factor at a time:
+    P0 v1 features + v1 quantile scaling, no de-duplication (= original submission)
+    P1 v1 features + log/min-max scaling
+    (P2-P4, i.e. v2 numeric-only / +categorical / +de-duplication, are in baseline_ablation)."""
+    return baseline_ablation(cfg, log, combos=[("v1", False, "quantile_v1"), ("v1", False, "logminmax")],
+                             out_name="baseline_v1_path")

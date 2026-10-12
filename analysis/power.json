@@ -1,0 +1,6 @@
+{
+  "n_seeds": 20,
+  "mde_dz_alpha05": 0.6604416544380312,
+  "mde_dz_alpha05_over_4": 0.814591415440914,
+  "min_exact_wilcoxon_p_two_sided": 1.9073486328125e-06
+}

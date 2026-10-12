@@ -38,6 +38,7 @@ For each of `A`, `B`, `C1`, `C2`:
 | C1 | 2 extra data partitions × 5 seeds, both datasets | ~2–3 h |
 | C2 | Adversarial-training trade-off sweep, baseline ablation (feature policy × de-duplication × threshold), multiclass analysis, memory/latency profiling | ~4–5 h |
 | C3 | Attack success at false-positive-rate-matched thresholds (5 seeds, both datasets) | ~1 h |
+| C4 | Original-pipeline replication path (v1 feature list and scaling) + absolute-memory profiling | ~30 min |
 
 The total is about 12–17 GPU hours, which fits in the free 30 h/week quota. A version may stop at Kaggle's
 12-hour limit. If that happens, create a new version: add the stopped version's output as an input and set

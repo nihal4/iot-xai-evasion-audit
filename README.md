@@ -70,7 +70,7 @@ Before running, check that your copies are byte-identical to the ones used in th
 ## Installation
 
 ```bash
-git clone https://github.com/<account>/iot-xai-evasion-audit.git
+git clone https://github.com/nihal4/iot-xai-evasion-audit.git
 cd iot-xai-evasion-audit
 pip install -r requirements.txt
 ```
@@ -87,7 +87,10 @@ python -m iotxai.cli --session B  --input-root ./data --out ./results   # Edge-I
 python -m iotxai.cli --session C1 --input-root ./data --out ./results   # 2 extra partitions x 5 seeds
 python -m iotxai.cli --session C2 --input-root ./data --out ./results   # AT sweep, ablation, multiclass, profiling
 python -m iotxai.cli --session C3 --input-root ./data --out ./results   # FPR-matched operating points
+python -m iotxai.cli --session C4 --input-root ./data --out ./results   # v1 replication path, memory profiling
 python -m iotxai.analysis ./results --out ./analysis                    # all tables and figures
+python tools/make_figures.py ./results ./analysis ./analysis/figures   # paper figures
+python tools/make_tables.py  ./results ./analysis ./analysis/tables    # paper tables + numbers.json
 ```
 
 | Session | Content | Approx. time (Tesla T4) |
@@ -97,6 +100,7 @@ python -m iotxai.analysis ./results --out ./analysis                    # all ta
 | C1 | Partition sensitivity: partitions 1 and 2 × 5 seeds, both datasets | 2–3 h |
 | C2 | Adversarial-training sweep, baseline ablation, multiclass analysis, latency/memory profiling | 4–5 h |
 | C3 | Attack success at false-positive-rate-matched thresholds | ~1 h |
+| C4 | Original-pipeline replication path + absolute-memory profiling | ~30 min |
 
 **Resuming.** Every run writes `results/runs/<dataset>_split<k>_seed<s>/done.json`. Finished runs are skipped, so an interrupted session can simply be restarted.
 
@@ -138,6 +142,8 @@ For every run, `results/runs/<dataset>_split<k>_seed<s>/` contains:
 - the fixed attack and explanation subsets.
 
 Together with the raw CSVs, these files rebuild every model input exactly.
+
+This repository contains the seed-level tables, audits, secondary analyses and full session logs (`results/logs/`). The large binary artefacts (`arrays.npz`, `models/`, `explanations_records.csv.gz`, partition manifests, `environment.json`) are in the per-session Kaggle output archives; see [`results/README.md`](results/README.md).
 
 ## Citation
 

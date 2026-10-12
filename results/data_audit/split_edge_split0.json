@@ -1,0 +1,14 @@
+{
+  "split_id": 0,
+  "split_seed": 2026,
+  "n_train": 95979,
+  "n_val": 20567,
+  "n_test": 20568,
+  "train_test_shared_vectors": 0,
+  "train_val_shared_vectors": 1,
+  "val_test_shared_vectors": 0,
+  "n_model_columns": 53,
+  "n_feature_groups": 34,
+  "train_positive_rate": 0.8279415288761083,
+  "test_positive_rate": 0.8279366005445352
+}

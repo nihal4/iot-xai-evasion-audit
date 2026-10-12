@@ -21,6 +21,8 @@ def run_session(session, out, work, input_root="/kaggle/input", ton_csv="", edge
         extras.multiclass(cfg, log)
     if cfg.run_baseline_ablation:
         extras.baseline_ablation(cfg, log)
+    if cfg.run_v1_path:
+        extras.v1_path(cfg, log)
     if cfg.run_operating_point:
         extras.operating_point(cfg, log)
     if cfg.run_profiling:
@@ -36,7 +38,7 @@ def run_session(session, out, work, input_root="/kaggle/input", ton_csv="", edge
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--session", required=True, choices=["TEST", "A", "B", "C1", "C2", "C3"])
+    ap.add_argument("--session", required=True, choices=["TEST", "A", "B", "C1", "C2", "C3", "C4"])
     ap.add_argument("--input-root", default="./data")
     ap.add_argument("--out", default="./results")
     ap.add_argument("--work", default="./cache")

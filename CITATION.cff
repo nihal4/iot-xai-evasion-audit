@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this code or the result artefacts, please cite the paper and this archive."
 type: software
-date-released: "2026-10-12"
+date-released: "2026-10-13"
 keywords:
   - intrusion detection
   - IoT
@@ -36,4 +36,4 @@ authors:
   - family-names: Sinthia
     given-names: Sabikun Nahar
     affiliation: Daffodil International University
-repository-code: "https://github.com/REPLACE-WITH-ACCOUNT/iot-xai-evasion-audit"
+repository-code: "https://github.com/nihal4/iot-xai-evasion-audit"

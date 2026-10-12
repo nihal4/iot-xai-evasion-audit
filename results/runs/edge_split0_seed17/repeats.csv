@@ -1,0 +1,9 @@
+dataset,split,seed,model,explainer,source,jaccard@3,jaccard@5,spearman,signed_cosine,top1_agree
+edge,0,17,mlp_clean,LIME,lime_sampling,0.3775,0.497377,0.735336,0.631534,0.262
+edge,0,17,mlp_clean,SHAP,shap_background,0.846667,0.855754,0.913076,0.99149,0.986667
+edge,0,17,mlp_fgsmat,LIME,lime_sampling,0.3274,0.474278,0.601097,0.358717,0.186
+edge,0,17,mlp_fgsmat,SHAP,shap_background,0.85,0.865556,0.841388,0.988803,0.98
+edge,0,17,mlp_pgdat,LIME,lime_sampling,0.3149,0.459972,0.571371,0.3543,0.193
+edge,0,17,mlp_pgdat,SHAP,shap_background,0.906667,0.851111,0.866482,0.972658,0.946667
+edge,0,17,xgb,LIME,lime_sampling,0.3216,0.465306,0.54358,0.144407,0.182
+edge,0,17,xgb,SHAP,shap_background,0.814,0.800635,0.886628,0.973108,0.76

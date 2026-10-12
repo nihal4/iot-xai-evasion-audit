@@ -1,0 +1,5 @@
+model,train_seconds,val_tuned_threshold,temperature,dataset,split,seed
+mlp_clean,3.12316,0.0214813,1.12837,edge,1,53
+mlp_fgsmat,4.7441,0.157608,1.26352,edge,1,53
+mlp_pgdat,14.3336,0.158369,1.18762,edge,1,53
+xgb,0.734276,0.181098,1.0,edge,1,53
