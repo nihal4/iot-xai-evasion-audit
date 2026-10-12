@@ -1,0 +1,31 @@
+{
+  "created_utc": "2026-09-22T12:26:54.904560+00:00",
+  "seeds": [
+    17,
+    29,
+    41,
+    53,
+    67
+  ],
+  "split_seed": 2026,
+  "max_rows_per_dataset": 500000,
+  "explain_benign_rows": 300,
+  "explain_malicious_rows": 300,
+  "attack_rows": 300,
+  "hidden_dims": [
+    128,
+    64,
+    32
+  ],
+  "dropout": 0.2,
+  "batch_size": 2048,
+  "max_epochs": 30,
+  "pgd_steps": 10,
+  "epsilons": [
+    0.01,
+    0.03,
+    0.05
+  ],
+  "lime_num_samples": 300,
+  "device": "cuda"
+}

@@ -1,0 +1,32 @@
+{
+  "metadata_ton.json": {
+    "path": "/home/user/legacy_experiment_results/metadata_ton.json",
+    "bytes": 2738,
+    "sha256": "6d53801137957095da086534c399ec937a3f0f85dec7ccf45fb7b743aaf9c7ff"
+  },
+  "metadata_edge.json": {
+    "path": "/home/user/legacy_experiment_results/metadata_edge.json",
+    "bytes": 2690,
+    "sha256": "fada751d85b1156b7509964e17199797369151009db8848d97fd89e5d7582dc1"
+  },
+  "split_summary_ton.csv": {
+    "path": "/home/user/legacy_experiment_results/split_summary_ton.csv",
+    "bytes": 72,
+    "sha256": "6a416ad475a772fa1058c7e9474a69bf6345fd3501481a7fca1f19a68d85a093"
+  },
+  "split_summary_edge.csv": {
+    "path": "/home/user/legacy_experiment_results/split_summary_edge.csv",
+    "bytes": 75,
+    "sha256": "44774d42b32bae09b0cf2958eafb56b0da0d7a8abd567b448beac6f2d01bd3ec"
+  },
+  "config.json": {
+    "path": "/home/user/legacy_experiment_results/config.json",
+    "bytes": 477,
+    "sha256": "a7bfad9e4c873441dc02e3b2c7e4f8fa3a16bdaf8dfa0d07ea5bdd18e3a8f6e7"
+  },
+  "environment.json": {
+    "path": "/home/user/legacy_experiment_results/environment.json",
+    "bytes": 211,
+    "sha256": "d763149a261ed4cdbca0d6eb773ba58aee87070f25c2ea6ec12dedba08eda93e"
+  }
+}

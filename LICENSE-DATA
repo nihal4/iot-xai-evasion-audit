@@ -1,0 +1,29 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 S. M. Nihal Ahmed, Afrim Hossen Khan, Sabikun Nahar Sinthia
+
+This licence applies to the result artefacts distributed in this repository:
+the contents of the directories `results/`, `analysis/` and `legacy_v1/`
+(tables, CSV files, JSON audit files, partition manifests, attribution arrays,
+probability arrays, trained model files and figures).
+
+You are free to:
+  - Share: copy and redistribute the material in any medium or format, for any
+    purpose, even commercially.
+  - Adapt: remix, transform, and build upon the material for any purpose, even
+    commercially.
+
+Under the following terms:
+  - Attribution: You must give appropriate credit (cite the accompanying paper
+    and this archive), provide a link to the licence, and indicate if changes
+    were made. You may do so in any reasonable manner, but not in any way that
+    suggests the licensor endorses you or your use.
+  - No additional restrictions: You may not apply legal terms or technological
+    measures that legally restrict others from doing anything the licence permits.
+
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+The raw ToN-IoT and Edge-IIoTset datasets are NOT included in this repository and
+are NOT covered by this licence; they remain subject to the terms of their
+original providers. The source code is licensed separately under the MIT licence
+(see LICENSE).

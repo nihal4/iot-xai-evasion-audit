@@ -1,0 +1,12 @@
+{
+  "title": "iot-xai-evasion-audit v2.0.0: code, partitions and result artefacts for 'A Multi-Seed Evaluation of Explanation Faithfulness and Stability under Adversarial Evasion in IoT/IIoT Intrusion Detection'",
+  "upload_type": "software",
+  "description": "Executable pipeline, environment specification, de-duplication audit, frozen partition manifests, per-record attribution arrays, validation/test probabilities, trained model weights and analysis outputs for the revised Discover Informatics manuscript.",
+  "creators": [
+    {"name": "Ahmed, S. M. Nihal", "affiliation": "Daffodil International University"},
+    {"name": "Khan, Afrim Hossen", "affiliation": "Daffodil International University"},
+    {"name": "Sinthia, Sabikun Nahar", "affiliation": "Daffodil International University"}
+  ],
+  "license": "MIT",
+  "keywords": ["intrusion detection", "IoT", "IIoT", "adversarial machine learning", "explainable AI", "SHAP", "LIME", "reproducibility"]
+}

@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this code or the result artefacts, please cite the paper and this archive."
+type: software
+date-released: "2026-10-12"
+keywords:
+  - intrusion detection
+  - IoT
+  - IIoT
+  - adversarial machine learning
+  - explainable AI
+  - SHAP
+  - LIME
+  - reproducibility
+preferred-citation:
+  type: article
+  title: "A Multi-Seed Evaluation of Explanation Faithfulness and Stability under Adversarial Evasion in IoT/IIoT Intrusion Detection"
+  journal: "Discover Informatics"
+  year: 2026
+  authors:
+    - family-names: Ahmed
+      given-names: S. M. Nihal
+    - family-names: Khan
+      given-names: Afrim Hossen
+    - family-names: Sinthia
+      given-names: Sabikun Nahar
+title: "iot-xai-evasion-audit: multi-seed evaluation of explanation faithfulness and stability under adversarial evasion in IoT/IIoT intrusion detection"
+version: 2.0.0
+license: MIT
+authors:
+  - family-names: Ahmed
+    given-names: S. M. Nihal
+    affiliation: Daffodil International University
+  - family-names: Khan
+    given-names: Afrim Hossen
+    affiliation: Daffodil International University
+  - family-names: Sinthia
+    given-names: Sabikun Nahar
+    affiliation: Daffodil International University
+repository-code: "https://github.com/REPLACE-WITH-ACCOUNT/iot-xai-evasion-audit"

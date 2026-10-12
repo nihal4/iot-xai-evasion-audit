@@ -1,0 +1,40 @@
+{
+  "rerun_performed": false,
+  "problem_1": {
+    "status": "fixed_by_reframing",
+    "n_seeds": 5,
+    "minimum_exact_two_sided_sign_permutation_p": 0.0625,
+    "holm_significant_comparisons": 0
+  },
+  "problem_2": {
+    "class_breakdown": "reconstructed from archived model_metrics_by_seed.csv, metadata test class counts, FPR, FNR, precision, and recall; no model rerun",
+    "edge_clean_main_pattern": "low malicious recall and low benign precision driven by approximately 5033 mean FN versus 444 mean FP across five seeds",
+    "validation_probability_outputs_available": false,
+    "optimal_threshold_recoverable": false,
+    "numeric_feature_restriction_documented": true
+  },
+  "problem_3": {
+    "artifact_hashes_file": "archive_hashes.json",
+    "raw_dataset_hash_recoverable": false,
+    "frozen_partition_files_available": false,
+    "partition_duplicate_check_recoverable": false,
+    "edge_kaggle_metadata": "version 5; dateModified 2022-03-18T14:43:23.643Z",
+    "ton_exact_source_page_or_download_date_recoverable": false
+  },
+  "problem_4": {
+    "status": "fixed_by_scope_narrowing",
+    "measured_scope": [
+      "training runtime",
+      "attack-generation runtime",
+      "explanation-batch runtime"
+    ],
+    "peak_memory_or_gpu_utilization_available": false
+  },
+  "problem_5": {
+    "per_record_attribution_arrays_available_in_archive": false,
+    "per_record_frozen_feature_matrices_available_in_archive": false,
+    "feature_correlation_analysis_recoverable": false,
+    "attribution_mass_flatness_analysis_recoverable": false,
+    "status": "permanent_limitation_for_current_archive; dataset asymmetry remains descriptive"
+  }
+}

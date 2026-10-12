@@ -1,0 +1,141 @@
+{
+  "archive_type": "legacy_completed_experiment",
+  "rerun_performed": false,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1394,
+      "sha256": "f5c3b58859cfa0ad99745c929639d1fcc27837505db0c6e2de9dd43426dd0dff"
+    },
+    {
+      "path": "archive_hashes.json",
+      "bytes": 1202,
+      "sha256": "14e5bdc6bb085ec910ef690c3ff2ba702d9f102fd758ecb90e6ae4d063966c99"
+    },
+    {
+      "path": "attack_metrics.csv",
+      "bytes": 15129,
+      "sha256": "b46a1b97b6c7ca3554e8eba94c4ba300f555264662843e17300af0eab01c050c"
+    },
+    {
+      "path": "attack_metrics_by_seed.csv",
+      "bytes": 14530,
+      "sha256": "541dcba78dea60f261def9fe8bcb183a8cf47dae869f2ac437bbe37c6bba34e7"
+    },
+    {
+      "path": "baseline_metrics.csv",
+      "bytes": 4596,
+      "sha256": "876c03579519237c2d3fa79cdcd73400969939f4b7a69993cfe019e5a5c09d12"
+    },
+    {
+      "path": "clustered_bootstrap_sensitivity.csv",
+      "bytes": 5356,
+      "sha256": "6a7dc4f14c4c5d307ca3308e92929de0c5dc496e95e8f58e0f64fd2284593378"
+    },
+    {
+      "path": "condition_effect_sizes.csv",
+      "bytes": 7001,
+      "sha256": "b68456ab171ab5322160c10cff4ebda1f93e9b22ce47ebd635aa41ebddc156ee"
+    },
+    {
+      "path": "config.json",
+      "bytes": 477,
+      "sha256": "a7bfad9e4c873441dc02e3b2c7e4f8fa3a16bdaf8dfa0d07ea5bdd18e3a8f6e7"
+    },
+    {
+      "path": "edge_class_breakdown_reconstructed.csv",
+      "bytes": 3265,
+      "sha256": "5be321bf70fbec74c7d66ccf149bf09de6de238f65338e8550606353ba02dfca"
+    },
+    {
+      "path": "edge_class_breakdown_summary.csv",
+      "bytes": 594,
+      "sha256": "f48a6b1a811e5818d8cb6a226a81f60da30d7f88d95a3e033afdff031e19c90c"
+    },
+    {
+      "path": "environment.json",
+      "bytes": 211,
+      "sha256": "d763149a261ed4cdbca0d6eb773ba58aee87070f25c2ea6ec12dedba08eda93e"
+    },
+    {
+      "path": "explanation_metrics.csv",
+      "bytes": 23734,
+      "sha256": "6922eb8bc9a811ea259fe5f7c1d2da046da5663740485fdd899d42959fee006e"
+    },
+    {
+      "path": "fig_attack_success_pgd.pdf",
+      "bytes": 17250,
+      "sha256": "6fc431209a31aef4d7b3b85103e5d92925caab0119d644d80def8ff17e424abf"
+    },
+    {
+      "path": "fig_explanation_runtime.pdf",
+      "bytes": 10860,
+      "sha256": "2e088fb9f9ade6e6aacae596471861d4a1a5415fb16594e0c864adb807f4166b"
+    },
+    {
+      "path": "fig_explanation_stability_jaccard.pdf",
+      "bytes": 17990,
+      "sha256": "452a66a6a6fcbe60c4abf7f8e4f88f2403ae7903658d1344e57484d6c791148d"
+    },
+    {
+      "path": "fig_faithfulness_comprehensiveness.pdf",
+      "bytes": 12975,
+      "sha256": "53c3bc38456b42fd5516f4e6b9ddb263387a14c2ee246013b92cfb9b021efdee"
+    },
+    {
+      "path": "figure_captions.json",
+      "bytes": 617,
+      "sha256": "386f6372546869f293c181eb24379ed8758dc8d5f8066478c02f345b4fc1e6e7"
+    },
+    {
+      "path": "metadata_edge.json",
+      "bytes": 2690,
+      "sha256": "fada751d85b1156b7509964e17199797369151009db8848d97fd89e5d7582dc1"
+    },
+    {
+      "path": "metadata_ton.json",
+      "bytes": 2738,
+      "sha256": "6d53801137957095da086534c399ec937a3f0f85dec7ccf45fb7b743aaf9c7ff"
+    },
+    {
+      "path": "model_metrics_by_seed.csv",
+      "bytes": 4542,
+      "sha256": "4d6dd9187887698aa11f6d0771a39afab0ee96b24e3eca0aa62f9fe238d7bc25"
+    },
+    {
+      "path": "paired_seed_statistics.csv",
+      "bytes": 2940,
+      "sha256": "ada2af14f9b473a1b27cf4d1948105d4b40a3efd69d725becee81c4ee6ca4beb"
+    },
+    {
+      "path": "posthoc_reanalysis_audit.json",
+      "bytes": 1657,
+      "sha256": "d1266c2fafa1c7af511718d2ae54726083b446525de7c8fd25fa34e879a219b1"
+    },
+    {
+      "path": "seed_level_explanation_summary.csv",
+      "bytes": 4217,
+      "sha256": "60ef4d6e1d77459869c9f4fe7d11122c6a1a50e77aa23e87755f08cdb2d75163"
+    },
+    {
+      "path": "split_summary_edge.csv",
+      "bytes": 75,
+      "sha256": "44774d42b32bae09b0cf2958eafb56b0da0d7a8abd567b448beac6f2d01bd3ec"
+    },
+    {
+      "path": "split_summary_ton.csv",
+      "bytes": 72,
+      "sha256": "6a416ad475a772fa1058c7e9474a69bf6345fd3501481a7fca1f19a68d85a093"
+    },
+    {
+      "path": "stage_00_manifest.json",
+      "bytes": 402,
+      "sha256": "d27cc914f90d239b9ebde8f1964c7215e4dade45baea5985ad46b04bbd010da8"
+    },
+    {
+      "path": "training_histories.csv",
+      "bytes": 97883,
+      "sha256": "27aa58690ea6985d70e447989578e51057c9dd5213c1f2712a2db3d638154b30"
+    }
+  ]
+}

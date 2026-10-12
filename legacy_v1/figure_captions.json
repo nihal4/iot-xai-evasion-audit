@@ -1,0 +1,6 @@
+{
+  "fig_attack_success_pgd.pdf": "PGD attack success rate by normalized perturbation budget; points are means across five training seeds and error bars are seed standard deviations.",
+  "fig_faithfulness_comprehensiveness.pdf": "Distribution of comprehensiveness AUC for SHAP and tabular LIME on clean and adversarial views.",
+  "fig_explanation_stability_jaccard.pdf": "Top-10 explanation stability measured by clean-to-adversarial Jaccard overlap across PGD budgets.",
+  "fig_explanation_runtime.pdf": "Mean explanation runtime by dataset and explainer; values aggregate clean and adversarial explanation calls."
+}
