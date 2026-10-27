@@ -1,14 +1,17 @@
 """Generate the self-contained Kaggle notebook from the package sources."""
 import json
+import sys
 from pathlib import Path
 
+ROUND2 = len(sys.argv) > 1 and sys.argv[1] == "round2"
+
 ROOT = Path(__file__).resolve().parents[1]
-MODULES = ["__init__", "config", "data", "models", "attacks", "explain", "runner", "extras", "analysis", "report", "cli"]
+MODULES = ["__init__", "config", "data", "models", "attacks", "explain", "runner", "extras", "round2", "analysis", "report", "cli"]
 
 def md(s): return {"cell_type": "markdown", "metadata": {}, "source": s.strip("\n").splitlines(True)}
 def code(s): return {"cell_type": "code", "metadata": {}, "execution_count": None, "outputs": [], "source": s.strip("\n").splitlines(True)}
 
-cells = [md("""
+INTRO_R1 = """
 # Revision v2: multi-seed XAI / adversarial-evasion IDS experiment (Kaggle)
 
 This notebook carries out the revised experiment for *"A Multi-Seed Evaluation of Explanation Faithfulness
@@ -34,7 +37,30 @@ and Stability under Adversarial Evasion in IoT/IIoT Intrusion Detection"* (major
 
 Each run writes `runs/<dataset>_split<k>_seed<s>/done.json`. If a session is interrupted, attach the previous
 version's output as an input and set `RESUME_FROM` so that the completed runs are skipped.
-"""),
+"""
+INTRO_R2 = """
+# Second review round: additional experiments (Kaggle)
+
+Additional analyses for *"A Multi-Seed Evaluation of Explanation Faithfulness and Stability under Adversarial
+Evasion in IoT/IIoT Intrusion Detection"* requested in the second review round.
+
+**Setup** (same as before): add the ToN-IoT network dataset and Edge-IIoTset as inputs; Accelerator **GPU T4 x1**;
+Internet **On**.
+
+1. Run `SESSION = "R0"` interactively first (about 10 minutes). It must finish with `SESSION R0 finished`.
+2. Then save one version per session with **Save Version → Save & Run All (Commit)**:
+
+| Session | Content | Expected T4 time |
+|---|---|---|
+| R1 | ToN-IoT, all 20 seeds: matched-FPR and threshold-free robustness, projection of unconstrained/numeric attacks onto valid records, black-box 3,000 queries and tree-aware coordinate search on XGBoost | 3–5 h |
+| R2 | Edge-IIoTset: same as R1 | 3–5 h |
+| R3 | Explainer fairness: LIME sample-size × kernel-width grid and discretised LIME, KernelSHAP for all detectors (5 seeds, both datasets) | 2–4 h |
+| R4 | Data variants (5 seeds, both datasets): label-conflicting records retained; temporal split (global); temporal split within each attack family | 3–5 h |
+
+3. When a version finishes, download `results_session_<X>.zip` from its *Output* tab. If you cannot, copy the
+   full log (every block starting with `### BEGIN`) into a .txt file.
+"""
+cells = [md(INTRO_R2 if ROUND2 else INTRO_R1),
 code("""
 import importlib.util, subprocess, sys
 for pkg in ["lime"]:
@@ -50,7 +76,7 @@ for m in MODULES:
                       "open('/kaggle/working/iotxai/__init__.py','w').write('''" + src + "''')"))
 cells.append(code('''
 # ============================ SESSION =====================================
-SESSION = "TEST"          # "TEST" first, then "A", "B", "C1", "C2", "C3", "C4" (one notebook version each)
+SESSION = "__DEFAULT__"
 RESUME_FROM = ""          # e.g. "/kaggle/input/<previous-version-output>/results_v2" to skip finished runs
 TON_CSV = ""              # leave "" for automatic discovery under /kaggle/input
 EDGE_CSV = ""
@@ -59,6 +85,9 @@ import sys, shutil, time
 from pathlib import Path
 sys.path.insert(0, "/kaggle/working")
 OUT = "/kaggle/working/results_v2"
+# start every session from a clean output and cache folder (the per-session zip files are kept)
+for _d in (OUT, "/kaggle/working/cache_v2"):
+    shutil.rmtree(_d, ignore_errors=True)
 if RESUME_FROM:
     shutil.copytree(RESUME_FROM, OUT, dirs_exist_ok=True)
     for d in Path(OUT, "runs").glob("*"):
@@ -71,10 +100,14 @@ cells.append(code('''
 # Quick look (also serves as a sanity check for the TEST session)
 import pandas as pd
 pd.set_option("display.width", 200)
-pred = pd.concat([pd.read_csv(f) for f in Path(OUT).glob("runs/*/predictive.csv")])
-display(pred[pred.threshold_rule=="val_tuned"].groupby(["dataset","model"])[["macro_f1","mal_recall","ben_precision","fpr","pr_auc"]].mean().round(4))
-att = pd.concat([pd.read_csv(f) for f in Path(OUT).glob("runs/*/attacks.csv")])
-display(att[att.eps==att.eps.max()].groupby(["dataset","model","attack","threat"])[["asr","syntactic_valid_rate"]].mean().round(3))
+files = list(Path(OUT).glob("runs/*/predictive.csv"))
+if not files:
+    print("no per-run tables in this session (extras only); see the printed blocks above")
+else:
+    pred = pd.concat([pd.read_csv(f) for f in files])
+    display(pred[pred.threshold_rule=="val_tuned"].groupby(["dataset","model"])[["macro_f1","mal_recall","ben_precision","fpr","pr_auc"]].mean().round(4))
+    att = pd.concat([pd.read_csv(f) for f in Path(OUT).glob("runs/*/attacks.csv")])
+    display(att[att.eps==att.eps.max()].groupby(["dataset","model","attack","threat"])[["asr","syntactic_valid_rate"]].mean().round(3))
 for f in sorted(Path(OUT).glob("data_audit/audit_*.json")):
     print(f.name, open(f).read()[:1500])
 '''))
@@ -101,5 +134,10 @@ display(FileLink(f"results_session_{SESSION}.zip"))
 '''))
 nb = {"cells": cells, "metadata": {"kernelspec": {"name": "python3", "display_name": "Python 3", "language": "python"},
       "language_info": {"name": "python"}}, "nbformat": 4, "nbformat_minor": 5}
-(ROOT / "notebooks" / "kaggle_revision_v2.ipynb").write_text(json.dumps(nb, indent=1))
+default = '"R0"          # "R0" first, then "R1", "R2", "R3", "R4" (one notebook version each)' if ROUND2 else \
+    '"TEST"          # "TEST" first, then "A", "B", "C1", "C2", "C3", "C4" (one notebook version each)'
+for c in cells:
+    c["source"] = [ln.replace('"__DEFAULT__"', default) for ln in c["source"]]
+txt = json.dumps(nb, indent=1)
+(ROOT / "notebooks" / ("kaggle_round2.ipynb" if ROUND2 else "kaggle_revision_v2.ipynb")).write_text(txt)
 print("written", len(cells), "cells")

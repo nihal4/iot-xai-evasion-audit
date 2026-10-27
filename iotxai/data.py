@@ -71,7 +71,40 @@ def _canon_cat(s: pd.Series) -> pd.Series:
     return canon.where(num.notna(), st)
 
 
-def load_and_audit(cfg, name, log):
+TIME_COLUMN = {"ton": "ts", "edge": "frame.time"}
+
+# Data variants used by the sensitivity analyses (split_id // 10):
+#   0 = primary (stratified partition, label-conflicting groups removed)
+#   1 = label-conflicting records retained (stratified partition, same seed)
+#   2 = temporal partition (global chronological 70/15/15)
+#   3 = temporal partition within each attack family (chronological 70/15/15 per family)
+def split_variant(split_id):
+    return int(split_id) // 10
+
+
+def _read_time(path, name, log):
+    col = TIME_COLUMN[name]
+    try:
+        t = pd.read_csv(path, usecols=lambda c: c.strip() == col, low_memory=False).iloc[:, 0]
+    except Exception as exc:
+        log(f"[{name}] time column unreadable ({exc}); using file order")
+        return None, {"time_source": "file_order"}
+    num = pd.to_numeric(t, errors="coerce")
+    if num.notna().mean() >= 0.95:
+        v = num.values.astype(float); src = "numeric"
+    else:
+        dt = pd.to_datetime(t.astype(str).str.strip(), errors="coerce", format="mixed")
+        frac = float(dt.notna().mean())
+        if frac < 0.5:
+            log(f"[{name}] only {frac:.2%} of time stamps parse; using file order")
+            return None, {"time_source": "file_order", "time_parse_rate": frac}
+        v = dt.astype("int64").values.astype(float); v[dt.isna().values] = np.nan; src = "datetime"
+    rate = float(np.isfinite(v).mean())
+    return v, {"time_source": src, "time_parse_rate": rate,
+               "time_examples": [str(x) for x in t.iloc[:3].tolist()] + [str(x) for x in t.iloc[-3:].tolist()]}
+
+
+def load_and_audit(cfg, name, log, variant=0):
     spec = DATASET_SPECS[name]
     path = discover_file(cfg, name)
     log(f"[{name}] reading {path}")
@@ -97,6 +130,13 @@ def load_and_audit(cfg, name, log):
     raw.columns = [c.strip() for c in raw.columns]
     raw = raw.reset_index(drop=True)
     raw["__row__"] = np.arange(len(raw))
+    time_all, time_info = (None, {})
+    if variant in (2, 3):
+        time_all, time_info = _read_time(path, name, log)
+        if time_all is not None and len(time_all) != len(raw):
+            log(f"[{name}] time column length mismatch; using file order"); time_all = None
+        if time_all is None:
+            time_all = np.arange(len(raw), dtype=float); time_info["time_source"] = "file_order"
     audit = {"dataset": name, "source_path": str(path), "sha256": sha256_file(path),
              "file_bytes": Path(path).stat().st_size, "rows_raw": int(len(raw)),
              "columns_loaded": [c for c in raw.columns if c != "__row__"],
@@ -152,6 +192,9 @@ def load_and_audit(cfg, name, log):
     is_conflict = frame["h"].isin(conflict_h)
     audit["rows_in_label_conflicting_groups"] = int(is_conflict.sum())
     keep = (~is_conflict) & (~frame.duplicated(subset=["h", "y"], keep="first"))
+    if variant == 1:    # sensitivity: keep one copy of each (vector, label) pair, conflicts included
+        keep = ~frame.duplicated(subset=["h", "y"], keep="first")
+        audit["variant"] = "label_conflicts_retained"
     if not cfg.dedup:   # ablation only: keep duplicates and conflicting records
         keep = pd.Series(True, index=frame.index)
     audit["rows_duplicate_feature_label"] = int((~is_conflict & frame.duplicated(subset=["h", "y"], keep="first")).sum())
@@ -176,11 +219,37 @@ def load_and_audit(cfg, name, log):
     audit["positive_rate_after_dedup"] = float(np.mean(y))
     data = {"num": num.reset_index(drop=True), "cat": cat.reset_index(drop=True),
             "y": np.asarray(y, int), "family": np.asarray(fam, object), "row": np.asarray(rows, int)}
+    if time_all is not None:
+        # unparseable stamps take the time of the nearest earlier record in file order
+        full = pd.Series(time_all).ffill().bfill().fillna(0.0).values
+        audit["time_unparsed_rows"] = int((~np.isfinite(time_all)).sum())
+        tt = full[rows]
+        data["time"] = tt
+        audit.update(time_info)
+        audit["time_vs_file_order_spearman"] = float(pd.Series(tt).rank().corr(pd.Series(rows).rank()))
+        audit["variant"] = "temporal_global" if variant == 2 else "temporal_within_family"
     return data, audit
 
 
+def _temporal_split(data, cfg, per_family):
+    t = data["time"]; n = len(t)
+    def cut(idx):
+        idx = idx[np.lexsort((data["row"][idx], t[idx]))]
+        a = int(round(len(idx) * (1 - cfg.val_frac - cfg.test_frac))); b = int(round(len(idx) * (1 - cfg.test_frac)))
+        return idx[:a], idx[a:b], idx[b:]
+    if not per_family:
+        tr, va, te = cut(np.arange(n))
+    else:
+        parts = [cut(np.where(data["family"] == f)[0]) for f in np.unique(data["family"])]
+        tr, va, te = (np.concatenate([p[i] for p in parts]) for i in range(3))
+    return {"train": np.sort(tr), "val": np.sort(va), "test": np.sort(te), "seed": None}
+
+
 def make_split(data, split_id, cfg):
-    seed = cfg.split_seed_base + split_id
+    v = split_variant(split_id)
+    if v in (2, 3):
+        return _temporal_split(data, cfg, per_family=(v == 3))
+    seed = cfg.split_seed_base + (split_id % 10)
     fam = data["family"]
     strat = fam.copy()
     vc = pd.Series(fam).value_counts()
@@ -331,6 +400,9 @@ def prepare(cfg, name, split_id, work_dir: Path, out_dir: Path, log, data_cache=
     sc = getattr(cfg, "scaling", "logminmax")
     tag = "" if (cfg.dedup and cfg.feature_policy == "v2" and sc == "logminmax") else \
         f"_{cfg.feature_policy}_dedup{int(cfg.dedup)}" + ("" if sc == "logminmax" else f"_{sc}")
+    variant = split_variant(split_id)
+    # subset sizes are part of the cache key, so sessions with different settings never share a cache
+    tag += f"_a{cfg.attack_rows}_e{cfg.explain_malicious_rows}x{cfg.explain_benign_rows}_b{cfg.shap_background_rows}"
     cache = work_dir / f"{name}_split{split_id}{tag}.npz"
     meta_path = work_dir / f"{name}_split{split_id}{tag}_prep.pkl"
     import pickle
@@ -338,9 +410,9 @@ def prepare(cfg, name, split_id, work_dir: Path, out_dir: Path, log, data_cache=
         z = dict(np.load(cache, allow_pickle=True))
         prep = pickle.loads(meta_path.read_bytes())
         return z, prep
-    ckey = (name, cfg.feature_policy, cfg.dedup)   # scaling is applied after loading
+    ckey = (name, cfg.feature_policy, cfg.dedup, variant)   # scaling is applied after loading
     if ckey not in data_cache:
-        data_cache[ckey] = load_and_audit(cfg, name, log)
+        data_cache[ckey] = load_and_audit(cfg, name, log, variant=variant)
     data, audit = data_cache[ckey]
     spec = DATASET_SPECS[name]
     sp = make_split(data, split_id, cfg)
@@ -361,10 +433,13 @@ def prepare(cfg, name, split_id, work_dir: Path, out_dir: Path, log, data_cache=
                    "val_test_shared_vectors": len(hva & hte),
                    "n_model_columns": len(prep.columns), "n_feature_groups": len(prep.groups),
                    "train_positive_rate": float(out["y_train"].mean()),
-                   "test_positive_rate": float(out["y_test"].mean())}
+                   "test_positive_rate": float(out["y_test"].mean()),
+                   "variant": int(variant),
+                   "families_train": sorted(set(out["fam_train"])), "families_test": sorted(set(out["fam_test"])),
+                   "test_families_unseen_in_train": sorted(set(out["fam_test"]) - set(out["fam_train"]))}
     # NB: shared *transformed* vectors can be >0 because clipping / top-20 level
     # bucketing maps distinct raw records to the same vector; raw duplicates are 0.
-    rng = np.random.default_rng(sp["seed"])
+    rng = np.random.default_rng(sp["seed"] if sp["seed"] is not None else cfg.split_seed_base + split_id)
     yt, ft = out["y_test"], out["fam_test"]
     mal = np.where(yt == 1)[0]; ben = np.where(yt == 0)[0]
     exp_mal = stratified_pick(mal, ft, cfg.explain_malicious_rows, rng)
@@ -376,10 +451,19 @@ def prepare(cfg, name, split_id, work_dir: Path, out_dir: Path, log, data_cache=
     out["shap_bg_idx"] = rng.choice(len(out["y_train"]), size=cfg.shap_background_rows, replace=False)
     out["lime_bg_idx"] = rng.choice(len(out["y_train"]), size=min(cfg.lime_background_rows, len(out["y_train"])), replace=False)
     out["knn_pool_idx"] = rng.choice(len(out["y_train"]), size=min(cfg.knn_pool_rows, len(out["y_train"])), replace=False)
+    vc = lambda a: {str(k): int(v) for k, v in pd.Series(a).value_counts().items()}
+    audit_split["test_family_counts"] = vc(ft)
+    audit_split["attack_subset_family_counts"] = vc(ft[out["attack_idx"]])
+    audit_split["explain_subset_family_counts"] = vc(ft[exp_mal])
+    log(f"[{name}] split {split_id} subset family counts: " + json.dumps({k: audit_split[k] for k in
+        ["test_family_counts", "attack_subset_family_counts", "explain_subset_family_counts"]}))
     np.savez_compressed(cache, **out)
     meta_path.write_bytes(pickle.dumps(prep))
     # public artefacts
-    d = out_dir / ("data_audit" if not tag else f"data_audit_ablation{tag}"); d.mkdir(parents=True, exist_ok=True)
+    abl = "" if (cfg.dedup and cfg.feature_policy == "v2" and sc == "logminmax") else tag
+    d = out_dir / ("data_audit" if not abl else f"data_audit_ablation{abl}"); d.mkdir(parents=True, exist_ok=True)
+    if variant:
+        (d / f"audit_{name}_variant{variant}.json").write_text(json.dumps(audit, indent=2, default=str))
     (d / f"audit_{name}.json").write_text(json.dumps(audit, indent=2, default=str))
     (d / f"split_{name}_split{split_id}.json").write_text(json.dumps(audit_split, indent=2))
     (d / f"preprocessor_{name}_split{split_id}.json").write_text(json.dumps(prep.meta(), indent=2, default=str))

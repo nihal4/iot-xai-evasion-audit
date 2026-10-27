@@ -1,0 +1,646 @@
+{
+  "columns": [
+    "icmp.checksum",
+    "icmp.seq_le",
+    "http.content_length",
+    "http.response",
+    "tcp.ack",
+    "tcp.checksum",
+    "tcp.connection.fin",
+    "tcp.connection.rst",
+    "tcp.connection.syn",
+    "tcp.connection.synack",
+    "tcp.flags",
+    "tcp.flags.ack",
+    "tcp.len",
+    "tcp.seq",
+    "udp.time_delta",
+    "dns.qry.name",
+    "dns.qry.qu",
+    "dns.retransmission",
+    "dns.retransmit_request",
+    "mqtt.conflag.cleansess",
+    "mqtt.conflags",
+    "mqtt.hdrflags",
+    "mqtt.len",
+    "mqtt.msgtype",
+    "mqtt.proto_len",
+    "mqtt.topic_len",
+    "mqtt.ver",
+    "http.request.method=0",
+    "http.request.method=GET",
+    "http.request.method=TRACE",
+    "http.request.method=POST",
+    "http.request.method=OPTIONS",
+    "http.referer=0",
+    "http.referer=127.0.0.1",
+    "http.referer=() { _; } >_[$($())] { echo 93e4r0-CVE-2014-6278: true; echo;echo; }",
+    "http.request.version=0",
+    "http.request.version=HTTP/1.1",
+    "http.request.version=HTTP/1.0",
+    "http.request.version=Src=javascript:alert('Vulnerable')><Img Src=\\\" HTTP/1.1",
+    "http.request.version=-a HTTP/1.1",
+    "http.request.version=By Dr HTTP/1.1",
+    "dns.qry.name.len=0",
+    "dns.qry.name.len=1",
+    "dns.qry.name.len=1.debian.pool.ntp.org",
+    "dns.qry.name.len=0.debian.pool.ntp.org",
+    "dns.qry.name.len=2.debian.pool.ntp.org",
+    "dns.qry.name.len=3.debian.pool.ntp.org",
+    "mqtt.conack.flags=0",
+    "mqtt.conack.flags=0x00000000",
+    "mqtt.protoname=0",
+    "mqtt.protoname=MQTT",
+    "mqtt.topic=0",
+    "mqtt.topic=Temperature_and_Humidity"
+  ],
+  "groups": [
+    {
+      "name": "icmp.checksum",
+      "cols": [
+        0
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "icmp.seq_le",
+      "cols": [
+        1
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "http.content_length",
+      "cols": [
+        2
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "http.response",
+      "cols": [
+        3
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.ack",
+      "cols": [
+        4
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.checksum",
+      "cols": [
+        5
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.connection.fin",
+      "cols": [
+        6
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.connection.rst",
+      "cols": [
+        7
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.connection.syn",
+      "cols": [
+        8
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.connection.synack",
+      "cols": [
+        9
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.flags",
+      "cols": [
+        10
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.flags.ack",
+      "cols": [
+        11
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.len",
+      "cols": [
+        12
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "tcp.seq",
+      "cols": [
+        13
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "udp.time_delta",
+      "cols": [
+        14
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dns.qry.name",
+      "cols": [
+        15
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dns.qry.qu",
+      "cols": [
+        16
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dns.retransmission",
+      "cols": [
+        17
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dns.retransmit_request",
+      "cols": [
+        18
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "mqtt.conflag.cleansess",
+      "cols": [
+        19
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "mqtt.conflags",
+      "cols": [
+        20
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "mqtt.hdrflags",
+      "cols": [
+        21
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "mqtt.len",
+      "cols": [
+        22
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "mqtt.msgtype",
+      "cols": [
+        23
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "mqtt.proto_len",
+      "cols": [
+        24
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "mqtt.topic_len",
+      "cols": [
+        25
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "mqtt.ver",
+      "cols": [
+        26
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "http.request.method",
+      "cols": [
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "http.referer",
+      "cols": [
+        32,
+        33,
+        34
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "http.request.version",
+      "cols": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "dns.qry.name.len",
+      "cols": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "mqtt.conack.flags",
+      "cols": [
+        47,
+        48
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "mqtt.protoname",
+      "cols": [
+        49,
+        50
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "mqtt.topic",
+      "cols": [
+        51,
+        52
+      ],
+      "kind": "cat"
+    }
+  ],
+  "col_kind": [
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat"
+  ],
+  "num_params": {
+    "icmp.checksum": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 11.090309111544167,
+      "raw_min": 0.0,
+      "raw_max": 65532.0,
+      "integer": true
+    },
+    "icmp.seq_le": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 11.090187028191608,
+      "raw_min": 0.0,
+      "raw_max": 65524.0,
+      "integer": true
+    },
+    "http.content_length": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 11.334468431278424,
+      "raw_min": 0.0,
+      "raw_max": 83655.0,
+      "integer": true
+    },
+    "http.response": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 0.6931471805599453,
+      "raw_min": 0.0,
+      "raw_max": 1.0,
+      "integer": true
+    },
+    "tcp.ack": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 21.48749257993863,
+      "raw_min": 0.0,
+      "raw_max": 2147333291.0,
+      "integer": true
+    },
+    "tcp.checksum": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 11.090354888959125,
+      "raw_min": 0.0,
+      "raw_max": 65535.0,
+      "integer": true
+    },
+    "tcp.connection.fin": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 0.6931471805599453,
+      "raw_min": 0.0,
+      "raw_max": 1.0,
+      "integer": true
+    },
+    "tcp.connection.rst": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 0.6931471805599453,
+      "raw_min": 0.0,
+      "raw_max": 1.0,
+      "integer": true
+    },
+    "tcp.connection.syn": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 0.6931471805599453,
+      "raw_min": 0.0,
+      "raw_max": 1.0,
+      "integer": true
+    },
+    "tcp.connection.synack": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 0.6931471805599453,
+      "raw_min": 0.0,
+      "raw_max": 1.0,
+      "integer": true
+    },
+    "tcp.flags": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 3.258096538021482,
+      "raw_min": 0.0,
+      "raw_max": 25.0,
+      "integer": true
+    },
+    "tcp.flags.ack": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 0.6931471805599453,
+      "raw_min": 0.0,
+      "raw_max": 1.0,
+      "integer": true
+    },
+    "tcp.len": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 11.078227201591789,
+      "raw_min": 0.0,
+      "raw_max": 64745.0,
+      "integer": true
+    },
+    "tcp.seq": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 19.151901528063796,
+      "raw_min": 0.0,
+      "raw_max": 207761537.0,
+      "integer": true
+    },
+    "udp.time_delta": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 6.230481447578482,
+      "raw_min": 0.0,
+      "raw_max": 507.0,
+      "integer": true
+    },
+    "dns.qry.name": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 14.879175575969347,
+      "raw_min": 0.0,
+      "raw_max": 2896968.0,
+      "integer": false
+    },
+    "dns.qry.qu": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 6.9363427358340495,
+      "raw_min": 0.0,
+      "raw_max": 1028.0,
+      "integer": true
+    },
+    "dns.retransmission": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 3.367295829986474,
+      "raw_min": 0.0,
+      "raw_max": 28.0,
+      "integer": true
+    },
+    "dns.retransmit_request": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 0.6931471805599453,
+      "raw_min": 0.0,
+      "raw_max": 1.0,
+      "integer": true
+    },
+    "mqtt.conflag.cleansess": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 0.6931471805599453,
+      "raw_min": 0.0,
+      "raw_max": 1.0,
+      "integer": true
+    },
+    "mqtt.conflags": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 1.0986122886681098,
+      "raw_min": 0.0,
+      "raw_max": 2.0,
+      "integer": true
+    },
+    "mqtt.hdrflags": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 5.41610040220442,
+      "raw_min": 0.0,
+      "raw_max": 224.0,
+      "integer": true
+    },
+    "mqtt.len": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 3.6888794541139363,
+      "raw_min": 0.0,
+      "raw_max": 39.0,
+      "integer": true
+    },
+    "mqtt.msgtype": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 2.70805020110221,
+      "raw_min": 0.0,
+      "raw_max": 14.0,
+      "integer": true
+    },
+    "mqtt.proto_len": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 1.6094379124341003,
+      "raw_min": 0.0,
+      "raw_max": 4.0,
+      "integer": true
+    },
+    "mqtt.topic_len": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 3.2188758248682006,
+      "raw_min": 0.0,
+      "raw_max": 24.0,
+      "integer": true
+    },
+    "mqtt.ver": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 1.6094379124341003,
+      "raw_min": 0.0,
+      "raw_max": 4.0,
+      "integer": true
+    }
+  },
+  "cat_levels": {
+    "http.request.method": [
+      "0",
+      "GET",
+      "TRACE",
+      "POST",
+      "OPTIONS"
+    ],
+    "http.referer": [
+      "0",
+      "127.0.0.1",
+      "() { _; } >_[$($())] { echo 93e4r0-CVE-2014-6278: true; echo;echo; }"
+    ],
+    "http.request.version": [
+      "0",
+      "HTTP/1.1",
+      "HTTP/1.0",
+      "Src=javascript:alert('Vulnerable')><Img Src=\\\" HTTP/1.1",
+      "-a HTTP/1.1",
+      "By Dr HTTP/1.1"
+    ],
+    "dns.qry.name.len": [
+      "0",
+      "1",
+      "1.debian.pool.ntp.org",
+      "0.debian.pool.ntp.org",
+      "2.debian.pool.ntp.org",
+      "3.debian.pool.ntp.org"
+    ],
+    "mqtt.conack.flags": [
+      "0",
+      "0x00000000"
+    ],
+    "mqtt.protoname": [
+      "0",
+      "MQTT"
+    ],
+    "mqtt.topic": [
+      "0",
+      "Temperature_and_Humidity"
+    ]
+  },
+  "constant_dropped": [
+    "arp.opcode",
+    "arp.hw.size",
+    "icmp.unused",
+    "dns.qry.type",
+    "dns.retransmit_request_in",
+    "mqtt.msg_decoded_as",
+    "mbtcp.len"
+  ],
+  "mutable": {
+    "http.content_length": 1,
+    "tcp.len": 1,
+    "mqtt.len": 1
+  },
+  "relations": []
+}

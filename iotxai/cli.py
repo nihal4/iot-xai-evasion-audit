@@ -7,6 +7,7 @@ from pathlib import Path
 from .config import Config, session_config
 from .runner import Logger, run_all
 from . import extras
+from . import round2
 
 
 def run_session(session, out, work, input_root="/kaggle/input", ton_csv="", edge_csv="", device="auto"):
@@ -27,6 +28,26 @@ def run_session(session, out, work, input_root="/kaggle/input", ton_csv="", edge
         extras.operating_point(cfg, log)
     if cfg.run_profiling:
         extras.profiling(cfg, log)
+    if cfg.run_r2_robustness:
+        round2.robustness_r2(cfg, log)
+    if cfg.run_r2_fairness:
+        round2.explainer_fairness(cfg, log)
+    if cfg.data_variants:
+        from .runner import run_one
+        from .report import print_block
+        import json as _json
+        for ds in cfg.datasets:
+            for sid in cfg.data_variants:
+                for seed in cfg.seeds:
+                    try:
+                        run_one(cfg, ds, sid, seed, log, explain=cfg.explain, repeats=False)
+                    except Exception as exc:
+                        import traceback
+                        log(f"VARIANT FAILED {ds} split{sid} seed{seed}: {exc}\n" + traceback.format_exc())
+                        break
+                for f in sorted((Path(out) / "data_audit").glob(f"*{ds}*")):
+                    if f.suffix == ".json":
+                        print(f"### BEGIN data_audit {f.name}\n{f.read_text()}\n### END data_audit {f.name}", flush=True)
     log(f"SESSION {session} finished in {(time.time() - t0) / 3600:.2f} h")
     from .report import cross_seed_summary
     try:
@@ -38,7 +59,7 @@ def run_session(session, out, work, input_root="/kaggle/input", ton_csv="", edge
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--session", required=True, choices=["TEST", "A", "B", "C1", "C2", "C3", "C4"])
+    ap.add_argument("--session", required=True, choices=["TEST", "A", "B", "C1", "C2", "C3", "C4", "R0", "R1", "R2", "R3", "R4"])
     ap.add_argument("--input-root", default="./data")
     ap.add_argument("--out", default="./results")
     ap.add_argument("--work", default="./cache")

@@ -27,6 +27,7 @@ def ton(n, rng):
         "weird_name": "-", "weird_addl": "-", "weird_notice": rng.choice(["-","F"], n)})
     df["dst_ip_bytes"] = df["dst_bytes"] + 20 * df["dst_pkts"]
     df["label"] = (fam != "normal").astype(int); df["type"] = fam
+    df.insert(0, "ts", 1554000000 + np.sort(rng.integers(0, 10**6, n)))
     return df
 
 def edge(n, rng):

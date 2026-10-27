@@ -73,7 +73,7 @@ write("tab_clean", "\n".join(rows))
 v1 = pd.read_csv(R / "extras" / "baseline_v1_path.csv")
 ab = pd.read_csv(R / "extras" / "baseline_ablation.csv").assign(scaling="logminmax")
 path = pd.concat([v1, ab], ignore_index=True)
-steps = [("v1", "quantile_v1", False, "P0: original pipeline (v1 features, 1--99\\% clip scaling, duplicates kept)"),
+steps = [("v1", "quantile_v1", False, "P0: original pipeline (original features, 1--99\\% clipped scaling, duplicates kept)"),
          ("v1", "logminmax", False, "P1: + log/min--max scaling"),
          ("numeric_only", "logminmax", False, "P2: + revised numeric feature set"),
          ("v2", "logminmax", False, "P3: + categorical protocol fields"),

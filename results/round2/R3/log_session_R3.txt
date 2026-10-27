@@ -1,0 +1,49 @@
+[22:12:50] [ton] reading /kaggle/input/datasets/smnihalahmed/dataset-1/Train_Test_datasets/Train_Test_Network_dataset/train_test_network.csv
+[22:12:59] relation src_ip_bytes >= {'src_bytes': 1.0, 'src_pkts': 20.0}: support=0.9883 kept=False
+[22:12:59] relation dst_ip_bytes >= {'dst_bytes': 1.0, 'dst_pkts': 20.0}: support=0.9818 kept=False
+[22:13:00] [ton] split 0 subset family counts: {"test_family_counts": {"normal": 3548, "injection": 2967, "password": 2287, "ddos": 1793, "xss": 1298, "dos": 967, "scanning": 671, "backdoor": 295, "mitm": 155, "ransomware": 37}, "attack_subset_family_counts": {"injection": 573, "password": 436, "ddos": 342, "xss": 247, "dos": 184, "scanning": 127, "backdoor": 55, "mitm": 29, "ransomware": 7}, "explain_subset_family_counts": {"injection": 88, "password": 65, "ddos": 51, "xss": 37, "dos": 27, "scanning": 19, "backdoor": 8, "mitm": 4, "ransomware": 1}}
+[22:13:00] [ton] split 0: {'split_id': 0, 'split_seed': 2026, 'n_train': 65414, 'n_val': 14017, 'n_test': 14018, 'train_test_shared_vectors': 22, 'train_val_shared_vectors': 22, 'val_test_shared_vectors': 1, 'n_model_columns': 88, 'n_feature_groups': 31, 'train_positive_rate': 0.746904332405907, 'test_positive_rate': 0.7468968469111142, 'variant': 0, 'families_train': [np.str_('backdoor'), np.str_('ddos'), np.str_('dos'), np.str_('injection'), np.str_('mitm'), np.str_('normal'), np.str_('password'), np.str_('ransomware'), np.str_('scanning'), np.str_('xss')], 'families_test': [np.str_('backdoor'), np.str_('ddos'), np.str_('dos'), np.str_('injection'), np.str_('mitm'), np.str_('normal'), np.str_('password'), np.str_('ransomware'), np.str_('scanning'), np.str_('xss')], 'test_families_unseen_in_train': [], 'test_family_counts': {'normal': 3548, 'injection': 2967, 'password': 2287, 'ddos': 1793, 'xss': 1298, 'dos': 967, 'scanning': 671, 'backdoor': 295, 'mitm': 155, 'ransomware': 37}, 'attack_subset_family_counts': {'injection': 573, 'password': 436, 'ddos': 342, 'xss': 247, 'dos': 184, 'scanning': 127, 'backdoor': 55, 'mitm': 29, 'ransomware': 7}, 'explain_subset_family_counts': {'injection': 88, 'password': 65, 'ddos': 51, 'xss': 37, 'dos': 27, 'scanning': 19, 'backdoor': 8, 'mitm': 4, 'ransomware': 1}}
+[22:14:47]   fairness ton seed 17 mlp_clean done
+[22:15:59]   fairness ton seed 17 mlp_fgsmat done
+[22:17:10]   fairness ton seed 17 mlp_pgdat done
+[22:20:51]   fairness ton seed 17 xgb done
+[22:22:34]   fairness ton seed 29 mlp_clean done
+[22:23:46]   fairness ton seed 29 mlp_fgsmat done
+[22:24:57]   fairness ton seed 29 mlp_pgdat done
+[22:28:40]   fairness ton seed 29 xgb done
+[22:30:20]   fairness ton seed 41 mlp_clean done
+[22:31:31]   fairness ton seed 41 mlp_fgsmat done
+[22:32:42]   fairness ton seed 41 mlp_pgdat done
+[22:36:31]   fairness ton seed 41 xgb done
+[22:38:12]   fairness ton seed 53 mlp_clean done
+[22:39:24]   fairness ton seed 53 mlp_fgsmat done
+[22:40:35]   fairness ton seed 53 mlp_pgdat done
+[22:44:22]   fairness ton seed 53 xgb done
+[22:46:00]   fairness ton seed 67 mlp_clean done
+[22:47:11]   fairness ton seed 67 mlp_fgsmat done
+[22:48:22]   fairness ton seed 67 mlp_pgdat done
+[22:52:06]   fairness ton seed 67 xgb done
+[22:52:06] [edge] reading /kaggle/input/datasets/mohamedamineferrag/edgeiiotset-cyber-security-dataset-of-iot-iiot/Edge-IIoTset dataset/Selected dataset for ML and DL/ML-EdgeIIoT-dataset.csv
+[22:52:12] [edge] split 0 subset family counts: {"test_family_counts": {"normal": 3539, "ddos_icmp": 1965, "ddos_http": 1540, "sql_injection": 1526, "ddos_tcp": 1517, "uploading": 1514, "vulnerability_scanner": 1506, "backdoor": 1468, "password": 1463, "ransomware": 1450, "xss": 1400, "port_scanning": 1290, "ddos_udp": 210, "fingerprinting": 127, "mitm": 53}, "attack_subset_family_counts": {"ddos_icmp": 244, "ddos_http": 180, "sql_injection": 178, "ddos_tcp": 177, "uploading": 177, "vulnerability_scanner": 176, "backdoor": 171, "password": 171, "ransomware": 169, "xss": 163, "port_scanning": 150, "ddos_udp": 24, "fingerprinting": 14, "mitm": 6}, "explain_subset_family_counts": {"ddos_icmp": 42, "ddos_http": 27, "uploading": 26, "ddos_tcp": 26, "vulnerability_scanner": 26, "sql_injection": 26, "ransomware": 25, "password": 25, "backdoor": 25, "xss": 24, "port_scanning": 22, "ddos_udp": 3, "fingerprinting": 2, "mitm": 1}}
+[22:52:12] [edge] split 0: {'split_id': 0, 'split_seed': 2026, 'n_train': 95979, 'n_val': 20567, 'n_test': 20568, 'train_test_shared_vectors': 0, 'train_val_shared_vectors': 1, 'val_test_shared_vectors': 0, 'n_model_columns': 53, 'n_feature_groups': 34, 'train_positive_rate': 0.8279415288761083, 'test_positive_rate': 0.8279366005445352, 'variant': 0, 'families_train': [np.str_('backdoor'), np.str_('ddos_http'), np.str_('ddos_icmp'), np.str_('ddos_tcp'), np.str_('ddos_udp'), np.str_('fingerprinting'), np.str_('mitm'), np.str_('normal'), np.str_('password'), np.str_('port_scanning'), np.str_('ransomware'), np.str_('sql_injection'), np.str_('uploading'), np.str_('vulnerability_scanner'), np.str_('xss')], 'families_test': [np.str_('backdoor'), np.str_('ddos_http'), np.str_('ddos_icmp'), np.str_('ddos_tcp'), np.str_('ddos_udp'), np.str_('fingerprinting'), np.str_('mitm'), np.str_('normal'), np.str_('password'), np.str_('port_scanning'), np.str_('ransomware'), np.str_('sql_injection'), np.str_('uploading'), np.str_('vulnerability_scanner'), np.str_('xss')], 'test_families_unseen_in_train': [], 'test_family_counts': {'normal': 3539, 'ddos_icmp': 1965, 'ddos_http': 1540, 'sql_injection': 1526, 'ddos_tcp': 1517, 'uploading': 1514, 'vulnerability_scanner': 1506, 'backdoor': 1468, 'password': 1463, 'ransomware': 1450, 'xss': 1400, 'port_scanning': 1290, 'ddos_udp': 210, 'fingerprinting': 127, 'mitm': 53}, 'attack_subset_family_counts': {'ddos_icmp': 244, 'ddos_http': 180, 'sql_injection': 178, 'ddos_tcp': 177, 'uploading': 177, 'vulnerability_scanner': 176, 'backdoor': 171, 'password': 171, 'ransomware': 169, 'xss': 163, 'port_scanning': 150, 'ddos_udp': 24, 'fingerprinting': 14, 'mitm': 6}, 'explain_subset_family_counts': {'ddos_icmp': 42, 'ddos_http': 27, 'uploading': 26, 'ddos_tcp': 26, 'vulnerability_scanner': 26, 'sql_injection': 26, 'ransomware': 25, 'password': 25, 'backdoor': 25, 'xss': 24, 'port_scanning': 22, 'ddos_udp': 3, 'fingerprinting': 2, 'mitm': 1}}
+[22:53:37]   fairness edge seed 17 mlp_clean done
+[22:54:26]   fairness edge seed 17 mlp_fgsmat done
+[22:55:15]   fairness edge seed 17 mlp_pgdat done
+[22:57:05]   fairness edge seed 17 xgb done
+[22:58:33]   fairness edge seed 29 mlp_clean done
+[22:59:22]   fairness edge seed 29 mlp_fgsmat done
+[23:00:11]   fairness edge seed 29 mlp_pgdat done
+[23:01:59]   fairness edge seed 29 xgb done
+[23:03:27]   fairness edge seed 41 mlp_clean done
+[23:04:17]   fairness edge seed 41 mlp_fgsmat done
+[23:05:06]   fairness edge seed 41 mlp_pgdat done
+[23:06:46]   fairness edge seed 41 xgb done
+[23:08:11]   fairness edge seed 53 mlp_clean done
+[23:09:00]   fairness edge seed 53 mlp_fgsmat done
+[23:09:50]   fairness edge seed 53 mlp_pgdat done
+[23:11:31]   fairness edge seed 53 xgb done
+[23:12:58]   fairness edge seed 67 mlp_clean done
+[23:13:48]   fairness edge seed 67 mlp_fgsmat done
+[23:14:37]   fairness edge seed 67 mlp_pgdat done
+[23:16:21]   fairness edge seed 67 xgb done
+[23:16:21] SESSION R3 finished in 1.06 h

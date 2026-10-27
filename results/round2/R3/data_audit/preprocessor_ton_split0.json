@@ -1,0 +1,717 @@
+{
+  "columns": [
+    "duration",
+    "src_bytes",
+    "dst_bytes",
+    "missed_bytes",
+    "src_pkts",
+    "src_ip_bytes",
+    "dst_pkts",
+    "dst_ip_bytes",
+    "dns_qclass",
+    "dns_qtype",
+    "dns_rcode",
+    "http_trans_depth",
+    "http_request_body_len",
+    "http_response_body_len",
+    "http_status_code",
+    "proto=tcp",
+    "proto=udp",
+    "proto=icmp",
+    "service=http",
+    "service=__missing__",
+    "service=dns",
+    "service=ftp",
+    "service=ssl",
+    "service=smb",
+    "service=smb;gssapi",
+    "service=dce_rpc",
+    "service=gssapi",
+    "conn_state=SF",
+    "conn_state=S0",
+    "conn_state=REJ",
+    "conn_state=S3",
+    "conn_state=S1",
+    "conn_state=SHR",
+    "conn_state=RSTR",
+    "conn_state=RSTO",
+    "conn_state=SH",
+    "conn_state=OTH",
+    "conn_state=S2",
+    "conn_state=RSTRH",
+    "conn_state=RSTOS0",
+    "dns_AA=__missing__",
+    "dns_AA=F",
+    "dns_AA=T",
+    "dns_RD=__missing__",
+    "dns_RD=T",
+    "dns_RD=F",
+    "dns_RA=__missing__",
+    "dns_RA=F",
+    "dns_RA=T",
+    "dns_rejected=__missing__",
+    "dns_rejected=F",
+    "dns_rejected=T",
+    "ssl_version=__missing__",
+    "ssl_version=TLSv12",
+    "ssl_version=TLSv13",
+    "ssl_version=TLSv10",
+    "ssl_cipher=__missing__",
+    "ssl_cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+    "ssl_cipher=TLS_AES_128_GCM_SHA256",
+    "ssl_cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+    "ssl_cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+    "ssl_resumed=__missing__",
+    "ssl_resumed=F",
+    "ssl_resumed=T",
+    "ssl_established=__missing__",
+    "ssl_established=F",
+    "ssl_established=T",
+    "http_method=__missing__",
+    "http_method=GET",
+    "http_method=POST",
+    "http_method=HEAD",
+    "http_version=__missing__",
+    "http_version=1.1",
+    "http_orig_mime_types=__missing__",
+    "http_orig_mime_types=application/soap+xml",
+    "http_orig_mime_types=application/xml",
+    "http_resp_mime_types=__missing__",
+    "http_resp_mime_types=application/xml",
+    "http_resp_mime_types=text/html",
+    "http_resp_mime_types=application/vnd.ms-cab-compressed",
+    "http_resp_mime_types=image/png",
+    "http_resp_mime_types=text/plain",
+    "http_resp_mime_types=application/ocsp-response",
+    "http_resp_mime_types=text/json",
+    "http_resp_mime_types=image/jpeg",
+    "http_resp_mime_types=application/x-debian-package",
+    "weird_notice=__missing__",
+    "weird_notice=F"
+  ],
+  "groups": [
+    {
+      "name": "duration",
+      "cols": [
+        0
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "src_bytes",
+      "cols": [
+        1
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dst_bytes",
+      "cols": [
+        2
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "missed_bytes",
+      "cols": [
+        3
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "src_pkts",
+      "cols": [
+        4
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "src_ip_bytes",
+      "cols": [
+        5
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dst_pkts",
+      "cols": [
+        6
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dst_ip_bytes",
+      "cols": [
+        7
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dns_qclass",
+      "cols": [
+        8
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dns_qtype",
+      "cols": [
+        9
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "dns_rcode",
+      "cols": [
+        10
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "http_trans_depth",
+      "cols": [
+        11
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "http_request_body_len",
+      "cols": [
+        12
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "http_response_body_len",
+      "cols": [
+        13
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "http_status_code",
+      "cols": [
+        14
+      ],
+      "kind": "num"
+    },
+    {
+      "name": "proto",
+      "cols": [
+        15,
+        16,
+        17
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "service",
+      "cols": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "conn_state",
+      "cols": [
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "dns_AA",
+      "cols": [
+        40,
+        41,
+        42
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "dns_RD",
+      "cols": [
+        43,
+        44,
+        45
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "dns_RA",
+      "cols": [
+        46,
+        47,
+        48
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "dns_rejected",
+      "cols": [
+        49,
+        50,
+        51
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "ssl_version",
+      "cols": [
+        52,
+        53,
+        54,
+        55
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "ssl_cipher",
+      "cols": [
+        56,
+        57,
+        58,
+        59,
+        60
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "ssl_resumed",
+      "cols": [
+        61,
+        62,
+        63
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "ssl_established",
+      "cols": [
+        64,
+        65,
+        66
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "http_method",
+      "cols": [
+        67,
+        68,
+        69,
+        70
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "http_version",
+      "cols": [
+        71,
+        72
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "http_orig_mime_types",
+      "cols": [
+        73,
+        74,
+        75
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "http_resp_mime_types",
+      "cols": [
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85
+      ],
+      "kind": "cat"
+    },
+    {
+      "name": "weird_notice",
+      "cols": [
+        86,
+        87
+      ],
+      "kind": "cat"
+    }
+  ],
+  "col_kind": [
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "num",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat",
+    "cat"
+  ],
+  "num_params": {
+    "duration": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 11.445908452722856,
+      "raw_min": 0.0,
+      "raw_max": 93516.92917,
+      "integer": false
+    },
+    "src_bytes": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 21.081209882634738,
+      "raw_min": 0.0,
+      "raw_max": 1430385581.0,
+      "integer": true
+    },
+    "dst_bytes": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 22.087788271136844,
+      "raw_min": 0.0,
+      "raw_max": 3913853482.0,
+      "integer": true
+    },
+    "missed_bytes": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 20.628088530414043,
+      "raw_min": 0.0,
+      "raw_max": 909211710.0,
+      "integer": true
+    },
+    "src_pkts": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 10.11147685607866,
+      "raw_min": 0.0,
+      "raw_max": 24623.0,
+      "integer": true
+    },
+    "src_ip_bytes": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 15.69078776686517,
+      "raw_min": 0.0,
+      "raw_max": 6522626.0,
+      "integer": true
+    },
+    "dst_pkts": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 11.092717208787851,
+      "raw_min": 0.0,
+      "raw_max": 65690.0,
+      "integer": true
+    },
+    "dst_ip_bytes": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 18.274446426876775,
+      "raw_min": 0.0,
+      "raw_max": 86395523.0,
+      "integer": true
+    },
+    "dns_qclass": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 10.39726874169286,
+      "raw_min": 0.0,
+      "raw_max": 32769.0,
+      "integer": true
+    },
+    "dns_qtype": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 5.545177444479562,
+      "raw_min": 0.0,
+      "raw_max": 255.0,
+      "integer": true
+    },
+    "dns_rcode": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 1.791759469228055,
+      "raw_min": 0.0,
+      "raw_max": 5.0,
+      "integer": true
+    },
+    "http_trans_depth": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 2.3978952727983707,
+      "raw_min": 0.0,
+      "raw_max": 10.0,
+      "integer": true
+    },
+    "http_request_body_len": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 7.757478766584179,
+      "raw_min": 0.0,
+      "raw_max": 2338.0,
+      "integer": true
+    },
+    "http_response_body_len": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 16.412583387254024,
+      "raw_min": 0.0,
+      "raw_max": 13424384.0,
+      "integer": true
+    },
+    "http_status_code": {
+      "log": true,
+      "lo": 0.0,
+      "hi": 6.003887067106539,
+      "raw_min": 0.0,
+      "raw_max": 404.0,
+      "integer": true
+    }
+  },
+  "cat_levels": {
+    "proto": [
+      "tcp",
+      "udp",
+      "icmp"
+    ],
+    "service": [
+      "http",
+      "__missing__",
+      "dns",
+      "ftp",
+      "ssl",
+      "smb",
+      "smb;gssapi",
+      "dce_rpc",
+      "gssapi"
+    ],
+    "conn_state": [
+      "SF",
+      "S0",
+      "REJ",
+      "S3",
+      "S1",
+      "SHR",
+      "RSTR",
+      "RSTO",
+      "SH",
+      "OTH",
+      "S2",
+      "RSTRH",
+      "RSTOS0"
+    ],
+    "dns_AA": [
+      "__missing__",
+      "F",
+      "T"
+    ],
+    "dns_RD": [
+      "__missing__",
+      "T",
+      "F"
+    ],
+    "dns_RA": [
+      "__missing__",
+      "F",
+      "T"
+    ],
+    "dns_rejected": [
+      "__missing__",
+      "F",
+      "T"
+    ],
+    "ssl_version": [
+      "__missing__",
+      "TLSv12",
+      "TLSv13",
+      "TLSv10"
+    ],
+    "ssl_cipher": [
+      "__missing__",
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+    ],
+    "ssl_resumed": [
+      "__missing__",
+      "F",
+      "T"
+    ],
+    "ssl_established": [
+      "__missing__",
+      "F",
+      "T"
+    ],
+    "http_method": [
+      "__missing__",
+      "GET",
+      "POST",
+      "HEAD"
+    ],
+    "http_version": [
+      "__missing__",
+      "1.1"
+    ],
+    "http_orig_mime_types": [
+      "__missing__",
+      "application/soap+xml",
+      "application/xml"
+    ],
+    "http_resp_mime_types": [
+      "__missing__",
+      "application/xml",
+      "text/html",
+      "application/vnd.ms-cab-compressed",
+      "image/png",
+      "text/plain",
+      "application/ocsp-response",
+      "text/json",
+      "image/jpeg",
+      "application/x-debian-package"
+    ],
+    "weird_notice": [
+      "__missing__",
+      "F"
+    ]
+  },
+  "constant_dropped": [],
+  "mutable": {
+    "duration": 1,
+    "src_bytes": 1,
+    "src_pkts": 1,
+    "src_ip_bytes": 1,
+    "http_request_body_len": 1
+  },
+  "relations": [
+    {
+      "lhs": "src_ip_bytes",
+      "rhs": {
+        "src_bytes": 1.0,
+        "src_pkts": 20.0
+      },
+      "why": "IP bytes include payload plus >=20-byte IPv4 header per packet",
+      "support": 0.9882899685082704,
+      "kept": false
+    },
+    {
+      "lhs": "dst_ip_bytes",
+      "rhs": {
+        "dst_bytes": 1.0,
+        "dst_pkts": 20.0
+      },
+      "why": "same invariant for responder direction",
+      "support": 0.9818081756198979,
+      "kept": false
+    }
+  ]
+}

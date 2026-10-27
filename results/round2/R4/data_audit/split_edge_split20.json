@@ -1,0 +1,56 @@
+{
+  "split_id": 20,
+  "split_seed": null,
+  "n_train": 95980,
+  "n_val": 20567,
+  "n_test": 20567,
+  "train_test_shared_vectors": 0,
+  "train_val_shared_vectors": 0,
+  "val_test_shared_vectors": 0,
+  "n_model_columns": 52,
+  "n_feature_groups": 32,
+  "train_positive_rate": 0.7866951448218379,
+  "test_positive_rate": 1.0,
+  "variant": 2,
+  "families_train": [
+    "backdoor",
+    "ddos_http",
+    "ddos_tcp",
+    "ddos_udp",
+    "normal",
+    "password",
+    "port_scanning",
+    "ransomware",
+    "sql_injection",
+    "vulnerability_scanner",
+    "xss"
+  ],
+  "families_test": [
+    "ddos_icmp",
+    "ddos_udp",
+    "ransomware",
+    "uploading"
+  ],
+  "test_families_unseen_in_train": [
+    "ddos_icmp",
+    "uploading"
+  ],
+  "test_family_counts": {
+    "ddos_icmp": 13095,
+    "ransomware": 3439,
+    "uploading": 2761,
+    "ddos_udp": 1272
+  },
+  "attack_subset_family_counts": {
+    "ddos_icmp": 1275,
+    "ransomware": 334,
+    "uploading": 268,
+    "ddos_udp": 123
+  },
+  "explain_subset_family_counts": {
+    "ddos_icmp": 192,
+    "ransomware": 50,
+    "uploading": 40,
+    "ddos_udp": 18
+  }
+}

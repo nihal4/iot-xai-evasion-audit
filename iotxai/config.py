@@ -103,6 +103,17 @@ class Config:
     run_operating_point: bool = False
     run_v1_path: bool = False
     profile_rows: int = 100
+    # ---------------------------------------------------------- second-round analyses
+    run_r2_robustness: bool = False     # all seeds, threshold-free + matched-FPR, projection, strong tree attacks
+    bb_queries_strong: int = 3000
+    coord_passes: int = 3
+    run_r2_fairness: bool = False       # LIME grid + KernelSHAP on a subset
+    fair_rows: int = 120                # 60 benign + 60 malicious explained records
+    fair_lime_samples: list = field(default_factory=lambda: [1000, 5000])
+    fair_lime_kernel: list = field(default_factory=lambda: [0.25, 0.75, 2.0])   # x sqrt(d); 0.75 = LIME default
+    kernel_bg_rows: int = 50
+    kernel_nsamples: int = 2048
+    data_variants: list = field(default_factory=list)   # split ids 10/20/30 (see data.split_variant)
 
     device: str = "auto"
     print_tables: bool = True          # print each run's result tables into the log (copy-paste fallback)
@@ -207,4 +218,21 @@ def session_config(session: str, **base) -> Config:
     if s == "C3":   # attack success vs. FPR-matched operating points (short)
         return Config(**base, datasets=["ton", "edge"], seeds=SEEDS_20[:5], split_ids=[],
                       run_operating_point=True)
+    # ---------------- second review round
+    if s == "R0":   # quick test of all second-round code paths
+        return Config(**base, datasets=["ton", "edge"], seeds=[17], split_ids=[], max_epochs=3,
+                      xgb_n_estimators=60, attack_rows=200, bb_queries=50, bb_queries_strong=150, coord_passes=1,
+                      run_r2_robustness=True, run_r2_fairness=True, fair_rows=20, fair_lime_samples=[300, 600],
+                      fair_lime_kernel=[0.75, 2.0], kernel_nsamples=256, kernel_bg_rows=20,
+                      data_variants=[10, 20, 30], explain_benign_rows=40, explain_malicious_rows=40,
+                      lime_num_samples=300, repeat_seeds=0, adv_views_reduced=True)
+    if s == "R1":   # ToN-IoT: 20 seeds, matched-FPR + threshold-free robustness, projection, strong tree attacks
+        return Config(**base, datasets=["ton"], split_ids=[], run_r2_robustness=True)
+    if s == "R2":   # Edge-IIoTset: same as R1
+        return Config(**base, datasets=["edge"], split_ids=[], run_r2_robustness=True)
+    if s == "R3":   # explainer fairness: LIME grid + KernelSHAP, 5 seeds, both datasets
+        return Config(**base, datasets=["ton", "edge"], seeds=SEEDS_20[:5], split_ids=[], run_r2_fairness=True)
+    if s == "R4":   # data variants: label conflicts retained, temporal (global), temporal (within family)
+        return Config(**base, datasets=["ton", "edge"], seeds=SEEDS_20[:5], split_ids=[],
+                      data_variants=[10, 20, 30], adv_views_reduced=True, repeat_seeds=0)
     raise ValueError(session)

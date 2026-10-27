@@ -1,0 +1,17 @@
+dataset,split,seed,model,threshold_rule,family,n,correct_rate
+ton,20,29,mlp_clean,val_tuned,password,641,1.0
+ton,20,29,mlp_clean,val_tuned,ransomware,250,0.996
+ton,20,29,mlp_clean,val_tuned,scanning,4476,0.99933
+ton,20,29,mlp_clean,val_tuned,xss,8650,0.994913
+ton,20,29,mlp_fgsmat,val_tuned,password,641,1.0
+ton,20,29,mlp_fgsmat,val_tuned,ransomware,250,0.996
+ton,20,29,mlp_fgsmat,val_tuned,scanning,4476,0.99933
+ton,20,29,mlp_fgsmat,val_tuned,xss,8650,0.997803
+ton,20,29,mlp_pgdat,val_tuned,password,641,1.0
+ton,20,29,mlp_pgdat,val_tuned,ransomware,250,0.996
+ton,20,29,mlp_pgdat,val_tuned,scanning,4476,0.99866
+ton,20,29,mlp_pgdat,val_tuned,xss,8650,0.990636
+ton,20,29,xgb,val_tuned,password,641,1.0
+ton,20,29,xgb,val_tuned,ransomware,250,0.996
+ton,20,29,xgb,val_tuned,scanning,4476,1.0
+ton,20,29,xgb,val_tuned,xss,8650,0.998728

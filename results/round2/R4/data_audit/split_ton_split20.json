@@ -1,0 +1,53 @@
+{
+  "split_id": 20,
+  "split_seed": null,
+  "n_train": 65414,
+  "n_val": 14018,
+  "n_test": 14017,
+  "train_test_shared_vectors": 0,
+  "train_val_shared_vectors": 0,
+  "val_test_shared_vectors": 0,
+  "n_model_columns": 88,
+  "n_feature_groups": 31,
+  "train_positive_rate": 0.6384260250099367,
+  "test_positive_rate": 1.0,
+  "variant": 2,
+  "families_train": [
+    "backdoor",
+    "ddos",
+    "dos",
+    "injection",
+    "mitm",
+    "normal",
+    "password"
+  ],
+  "families_test": [
+    "password",
+    "ransomware",
+    "scanning",
+    "xss"
+  ],
+  "test_families_unseen_in_train": [
+    "ransomware",
+    "scanning",
+    "xss"
+  ],
+  "test_family_counts": {
+    "xss": 8650,
+    "scanning": 4476,
+    "password": 641,
+    "ransomware": 250
+  },
+  "attack_subset_family_counts": {
+    "xss": 1238,
+    "scanning": 637,
+    "password": 90,
+    "ransomware": 35
+  },
+  "explain_subset_family_counts": {
+    "xss": 187,
+    "scanning": 95,
+    "password": 13,
+    "ransomware": 5
+  }
+}

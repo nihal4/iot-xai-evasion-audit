@@ -24,7 +24,7 @@ preferred-citation:
     - family-names: Sinthia
       given-names: Sabikun Nahar
 title: "iot-xai-evasion-audit: multi-seed evaluation of explanation faithfulness and stability under adversarial evasion in IoT/IIoT intrusion detection"
-version: 2.0.0
+version: 2.1.0
 license: MIT
 authors:
   - family-names: Ahmed

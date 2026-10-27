@@ -1,0 +1,17 @@
+dataset,split,seed,model,threshold_rule,family,n,correct_rate
+edge,20,41,mlp_clean,val_tuned,ddos_icmp,13095,1.0
+edge,20,41,mlp_clean,val_tuned,ddos_udp,1272,1.0
+edge,20,41,mlp_clean,val_tuned,ransomware,3439,1.0
+edge,20,41,mlp_clean,val_tuned,uploading,2761,1.0
+edge,20,41,mlp_fgsmat,val_tuned,ddos_icmp,13095,1.0
+edge,20,41,mlp_fgsmat,val_tuned,ddos_udp,1272,1.0
+edge,20,41,mlp_fgsmat,val_tuned,ransomware,3439,1.0
+edge,20,41,mlp_fgsmat,val_tuned,uploading,2761,1.0
+edge,20,41,mlp_pgdat,val_tuned,ddos_icmp,13095,1.0
+edge,20,41,mlp_pgdat,val_tuned,ddos_udp,1272,1.0
+edge,20,41,mlp_pgdat,val_tuned,ransomware,3439,1.0
+edge,20,41,mlp_pgdat,val_tuned,uploading,2761,0.998913
+edge,20,41,xgb,val_tuned,ddos_icmp,13095,1.0
+edge,20,41,xgb,val_tuned,ddos_udp,1272,1.0
+edge,20,41,xgb,val_tuned,ransomware,3439,1.0
+edge,20,41,xgb,val_tuned,uploading,2761,0.998913

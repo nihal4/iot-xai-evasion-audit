@@ -1,0 +1,106 @@
+[20:03:37] [ton] reading /kaggle/input/datasets/smnihalahmed/dataset-1/Train_Test_datasets/Train_Test_Network_dataset/train_test_network.csv
+[20:03:45] relation src_ip_bytes >= {'src_bytes': 1.0, 'src_pkts': 20.0}: support=0.9883 kept=False
+[20:03:45] relation dst_ip_bytes >= {'dst_bytes': 1.0, 'dst_pkts': 20.0}: support=0.9818 kept=False
+[20:03:46] [ton] split 0 subset family counts: {"test_family_counts": {"normal": 3548, "injection": 2967, "password": 2287, "ddos": 1793, "xss": 1298, "dos": 967, "scanning": 671, "backdoor": 295, "mitm": 155, "ransomware": 37}, "attack_subset_family_counts": {"injection": 573, "password": 436, "ddos": 342, "xss": 247, "dos": 184, "scanning": 127, "backdoor": 55, "mitm": 29, "ransomware": 7}, "explain_subset_family_counts": {"injection": 88, "password": 65, "ddos": 51, "xss": 37, "dos": 27, "scanning": 19, "backdoor": 8, "mitm": 4, "ransomware": 1}}
+[20:03:46] [ton] split 0: {'split_id': 0, 'split_seed': 2026, 'n_train': 65414, 'n_val': 14017, 'n_test': 14018, 'train_test_shared_vectors': 22, 'train_val_shared_vectors': 22, 'val_test_shared_vectors': 1, 'n_model_columns': 88, 'n_feature_groups': 31, 'train_positive_rate': 0.746904332405907, 'test_positive_rate': 0.7468968469111142, 'variant': 0, 'families_train': [np.str_('backdoor'), np.str_('ddos'), np.str_('dos'), np.str_('injection'), np.str_('mitm'), np.str_('normal'), np.str_('password'), np.str_('ransomware'), np.str_('scanning'), np.str_('xss')], 'families_test': [np.str_('backdoor'), np.str_('ddos'), np.str_('dos'), np.str_('injection'), np.str_('mitm'), np.str_('normal'), np.str_('password'), np.str_('ransomware'), np.str_('scanning'), np.str_('xss')], 'test_families_unseen_in_train': [], 'test_family_counts': {'normal': 3548, 'injection': 2967, 'password': 2287, 'ddos': 1793, 'xss': 1298, 'dos': 967, 'scanning': 671, 'backdoor': 295, 'mitm': 155, 'ransomware': 37}, 'attack_subset_family_counts': {'injection': 573, 'password': 436, 'ddos': 342, 'xss': 247, 'dos': 184, 'scanning': 127, 'backdoor': 55, 'mitm': 29, 'ransomware': 7}, 'explain_subset_family_counts': {'injection': 88, 'password': 65, 'ddos': 51, 'xss': 37, 'dos': 27, 'scanning': 19, 'backdoor': 8, 'mitm': 4, 'ransomware': 1}}
+[20:04:25]   r2 robustness ton seed 17 mlp_clean done
+[20:04:30]   r2 robustness ton seed 17 mlp_fgsmat done
+[20:04:34]   r2 robustness ton seed 17 mlp_pgdat done
+[20:07:11]   r2 robustness ton seed 17 xgb done
+[20:07:11] r2 robustness ton seed 17 finished in 205s
+[20:07:47]   r2 robustness ton seed 29 mlp_clean done
+[20:07:51]   r2 robustness ton seed 29 mlp_fgsmat done
+[20:07:55]   r2 robustness ton seed 29 mlp_pgdat done
+[20:10:38]   r2 robustness ton seed 29 xgb done
+[20:10:38] r2 robustness ton seed 29 finished in 207s
+[20:11:10]   r2 robustness ton seed 41 mlp_clean done
+[20:11:14]   r2 robustness ton seed 41 mlp_fgsmat done
+[20:11:18]   r2 robustness ton seed 41 mlp_pgdat done
+[20:14:03]   r2 robustness ton seed 41 xgb done
+[20:14:03] r2 robustness ton seed 41 finished in 205s
+[20:14:36]   r2 robustness ton seed 53 mlp_clean done
+[20:14:40]   r2 robustness ton seed 53 mlp_fgsmat done
+[20:14:44]   r2 robustness ton seed 53 mlp_pgdat done
+[20:17:30]   r2 robustness ton seed 53 xgb done
+[20:17:30] r2 robustness ton seed 53 finished in 207s
+[20:17:58]   r2 robustness ton seed 67 mlp_clean done
+[20:18:02]   r2 robustness ton seed 67 mlp_fgsmat done
+[20:18:06]   r2 robustness ton seed 67 mlp_pgdat done
+[20:20:51]   r2 robustness ton seed 67 xgb done
+[20:20:51] r2 robustness ton seed 67 finished in 200s
+[20:21:19]   r2 robustness ton seed 83 mlp_clean done
+[20:21:23]   r2 robustness ton seed 83 mlp_fgsmat done
+[20:21:27]   r2 robustness ton seed 83 mlp_pgdat done
+[20:24:13]   r2 robustness ton seed 83 xgb done
+[20:24:13] r2 robustness ton seed 83 finished in 203s
+[20:24:42]   r2 robustness ton seed 97 mlp_clean done
+[20:24:46]   r2 robustness ton seed 97 mlp_fgsmat done
+[20:24:50]   r2 robustness ton seed 97 mlp_pgdat done
+[20:27:34]   r2 robustness ton seed 97 xgb done
+[20:27:34] r2 robustness ton seed 97 finished in 201s
+[20:28:06]   r2 robustness ton seed 101 mlp_clean done
+[20:28:10]   r2 robustness ton seed 101 mlp_fgsmat done
+[20:28:14]   r2 robustness ton seed 101 mlp_pgdat done
+[20:31:00]   r2 robustness ton seed 101 xgb done
+[20:31:00] r2 robustness ton seed 101 finished in 206s
+[20:31:32]   r2 robustness ton seed 113 mlp_clean done
+[20:31:36]   r2 robustness ton seed 113 mlp_fgsmat done
+[20:31:40]   r2 robustness ton seed 113 mlp_pgdat done
+[20:34:26]   r2 robustness ton seed 113 xgb done
+[20:34:26] r2 robustness ton seed 113 finished in 205s
+[20:34:57]   r2 robustness ton seed 127 mlp_clean done
+[20:35:02]   r2 robustness ton seed 127 mlp_fgsmat done
+[20:35:06]   r2 robustness ton seed 127 mlp_pgdat done
+[20:37:52]   r2 robustness ton seed 127 xgb done
+[20:37:52] r2 robustness ton seed 127 finished in 206s
+[20:38:19]   r2 robustness ton seed 131 mlp_clean done
+[20:38:23]   r2 robustness ton seed 131 mlp_fgsmat done
+[20:38:27]   r2 robustness ton seed 131 mlp_pgdat done
+[20:41:09]   r2 robustness ton seed 131 xgb done
+[20:41:09] r2 robustness ton seed 131 finished in 197s
+[20:41:45]   r2 robustness ton seed 149 mlp_clean done
+[20:41:49]   r2 robustness ton seed 149 mlp_fgsmat done
+[20:41:53]   r2 robustness ton seed 149 mlp_pgdat done
+[20:44:37]   r2 robustness ton seed 149 xgb done
+[20:44:37] r2 robustness ton seed 149 finished in 208s
+[20:45:10]   r2 robustness ton seed 163 mlp_clean done
+[20:45:14]   r2 robustness ton seed 163 mlp_fgsmat done
+[20:45:18]   r2 robustness ton seed 163 mlp_pgdat done
+[20:48:03]   r2 robustness ton seed 163 xgb done
+[20:48:03] r2 robustness ton seed 163 finished in 206s
+[20:48:36]   r2 robustness ton seed 179 mlp_clean done
+[20:48:40]   r2 robustness ton seed 179 mlp_fgsmat done
+[20:48:44]   r2 robustness ton seed 179 mlp_pgdat done
+[20:51:26]   r2 robustness ton seed 179 xgb done
+[20:51:26] r2 robustness ton seed 179 finished in 203s
+[20:52:00]   r2 robustness ton seed 191 mlp_clean done
+[20:52:04]   r2 robustness ton seed 191 mlp_fgsmat done
+[20:52:08]   r2 robustness ton seed 191 mlp_pgdat done
+[20:54:50]   r2 robustness ton seed 191 xgb done
+[20:54:51] r2 robustness ton seed 191 finished in 205s
+[20:55:24]   r2 robustness ton seed 211 mlp_clean done
+[20:55:28]   r2 robustness ton seed 211 mlp_fgsmat done
+[20:55:32]   r2 robustness ton seed 211 mlp_pgdat done
+[20:58:18]   r2 robustness ton seed 211 xgb done
+[20:58:18] r2 robustness ton seed 211 finished in 208s
+[20:58:53]   r2 robustness ton seed 223 mlp_clean done
+[20:58:57]   r2 robustness ton seed 223 mlp_fgsmat done
+[20:59:01]   r2 robustness ton seed 223 mlp_pgdat done
+[21:01:47]   r2 robustness ton seed 223 xgb done
+[21:01:47] r2 robustness ton seed 223 finished in 208s
+[21:02:16]   r2 robustness ton seed 239 mlp_clean done
+[21:02:20]   r2 robustness ton seed 239 mlp_fgsmat done
+[21:02:24]   r2 robustness ton seed 239 mlp_pgdat done
+[21:05:08]   r2 robustness ton seed 239 xgb done
+[21:05:08] r2 robustness ton seed 239 finished in 202s
+[21:05:43]   r2 robustness ton seed 251 mlp_clean done
+[21:05:48]   r2 robustness ton seed 251 mlp_fgsmat done
+[21:05:52]   r2 robustness ton seed 251 mlp_pgdat done
+[21:08:38]   r2 robustness ton seed 251 xgb done
+[21:08:38] r2 robustness ton seed 251 finished in 210s
+[21:09:11]   r2 robustness ton seed 269 mlp_clean done
+[21:09:15]   r2 robustness ton seed 269 mlp_fgsmat done
+[21:09:19]   r2 robustness ton seed 269 mlp_pgdat done
+[21:12:03]   r2 robustness ton seed 269 xgb done
+[21:12:03] r2 robustness ton seed 269 finished in 205s
+[21:12:03] SESSION R1 finished in 1.14 h
